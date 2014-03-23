@@ -3,6 +3,7 @@ package com.example.ubet;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,7 +44,12 @@ public class LoginActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
+	//When login button clicked
+	public void login(View view) {
+	
+	}	
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
