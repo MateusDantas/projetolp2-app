@@ -1,4 +1,4 @@
-package com.ubet.client;
+package com.ubet.util;
 
 public class Variables {
 
