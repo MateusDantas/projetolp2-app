@@ -37,16 +37,53 @@ public class UbetApi {
 
 	private static final AuthScope SCOPE = new AuthScope(UBET_AUTHORITY, PORT);
 
+	public static String authenticateUser(String username, String password)
+			throws AuthenticationException, ClientProtocolException,
+			IOException, ubetInternalError {
+
+		InputStream instream = ubetLogin(username, password);
+
+		Document doc = Jsoup.parse(instream, null, null);
+
+		String authToken = doc.select("div#authToken").html();
+		
+		if (authToken.equals("0"))
+			return null;
+		
+		return authToken;
+	}
+
 	public static InputStream ubetLogin(String username, String password)
 			throws AuthenticationException, ClientProtocolException,
 			IOException, ubetInternalError {
 
 		TreeMap<String, String> params = new TreeMap<String, String>();
 
+		password = BCrypt.hashpw(password, BCrypt.gensalt(3));
+
 		params.put("username", username);
 		params.put("password", password);
 
 		return ubetApiCall(UbetUrls.LOGIN_USER_URL, params);
+	}
+
+	public static InputStream ubetRegister(String firstName, String lastName,
+			String email, String username, String password, int language)
+			throws AuthenticationException, ClientProtocolException,
+			IOException, ubetInternalError {
+
+		TreeMap<String, String> params = new TreeMap<String, String>();
+
+		password = BCrypt.hashpw(password, BCrypt.gensalt(3));
+
+		params.put("firstname", firstName);
+		params.put("secondname", lastName);
+		params.put("email", email);
+		params.put("username", username);
+		params.put("password", password);
+		params.put("language", String.valueOf(language));
+
+		return ubetApiCall(UbetUrls.CREATE_USER_URL, params);
 	}
 
 	public static InputStream ubetApiCall(String url,

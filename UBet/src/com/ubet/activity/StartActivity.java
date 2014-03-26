@@ -1,6 +1,7 @@
 package com.ubet.activity;
 
 import com.ubet.R;
+import com.ubet.authenticator.AuthenticatorActivity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -49,7 +50,7 @@ public class StartActivity extends ActionBarActivity {
 	
 	//When login button clicked
 	public void goLogin(View view) {
-		Intent intent = new Intent(this, LoginActivity.class);
+		Intent intent = new Intent(this, AuthenticatorActivity.class);
 
 		startActivity(intent);
 	}
