@@ -5,20 +5,24 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Register</string>
-    
     <string name="button_login">Login</string>
     <string name="button_register">Register</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_firstname">First Name</string>
+    <string name="prompt_secondname">Second Name</string>
+    
     <string name="prompt_birthday">What\'s your birthday date?</string>
     <string name="hello_world">Hello world!</string>
-
-    <string name="login_missing_username">Missing Username</string>
-    <string name="login_missing_password">Missing Password</string>
     
-    <string name="login_fail">Something went wrong! Try Again!</string>
-    
+    <string name="missing_username">Missing Username</string>
+    <string name="missing_password">Missing Password</string>
+    <string name="missing_firstname">Missing First Name</string>
+    <string name="missing_secondname">Missing Second Name</string>
+    <string name="missing_email">Missing Email</string>
+    <string name="login_fail">Could not authenticate user! Try Again!</string>
     <string name="ui_authenticating">Checking your credentials! Be Patience!</string>
-     
+    <string name="title_activity_test">TestActivity</string>
+
 </resources>

@@ -28,53 +28,64 @@ import android.accounts.AuthenticatorException;
 import android.content.Context;
 import android.net.Uri;
 import android.os.OperationCanceledException;
+import android.util.Log;
 
-public class UbetApi {
+public abstract class UbetApi {
 
 	private static final String SCHEME = "http";
 	private static final String UBET_AUTHORITY = "ubet.herokuapp.com";
-	private static final int PORT = 80;
 
-	private static final AuthScope SCOPE = new AuthScope(UBET_AUTHORITY, PORT);
 
-	public static String authenticateUser(String username, String password)
-			throws AuthenticationException, ClientProtocolException,
-			IOException, ubetInternalError {
+	public static String authenticateUser(String username, String password) {
 
-		InputStream instream = ubetLogin(username, password);
+		final HttpResponse response;
 
-		Document doc = Jsoup.parse(instream, null, null);
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme(SCHEME);
+		builder.authority(UBET_AUTHORITY);
+		builder.appendEncodedPath(UbetUrls.LOGIN_USER_URL);
+		builder.appendQueryParameter("username", username);
+		//password = BCrypt.hashpw(password, BCrypt.gensalt(5));
+		builder.appendQueryParameter("password", password);
 
-		String authToken = doc.select("div#authToken").html();
-		
-		if (authToken.equals("0"))
+		Uri uri = builder.build();
+
+		HttpGet request = new HttpGet(String.valueOf(uri));
+
+		Log.d("URL", uri.toString());
+		DefaultHttpClient client = (DefaultHttpClient) HttpClientFactory
+				.getSafeClient();
+
+		try {
+
+			response = client.execute(request);
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_ACCEPTED) {
+
+				final HttpEntity entity = response.getEntity();
+				InputStream instream = entity.getContent();
+
+				Document doc = Jsoup.parse(instream, "UTF-8", "http://ubet.herokuapp.com");
+
+				String authToken = doc.select("div#authToken").html();
+
+				return authToken;
+			}
 			return null;
-		
-		return authToken;
+		} catch (Exception e) {
+			Log.v("EXCEPTION", e.getMessage().toString());
+			return null;
+		}
+
 	}
 
-	public static InputStream ubetLogin(String username, String password)
-			throws AuthenticationException, ClientProtocolException,
-			IOException, ubetInternalError {
-
-		TreeMap<String, String> params = new TreeMap<String, String>();
-
-		password = BCrypt.hashpw(password, BCrypt.gensalt(3));
-
-		params.put("username", username);
-		params.put("password", password);
-
-		return ubetApiCall(UbetUrls.LOGIN_USER_URL, params);
-	}
-
+	
 	public static InputStream ubetRegister(String firstName, String lastName,
 			String email, String username, String password, int language)
-			throws AuthenticationException, ClientProtocolException,
-			IOException, ubetInternalError {
+			throws Exception {
 
 		TreeMap<String, String> params = new TreeMap<String, String>();
 
-		password = BCrypt.hashpw(password, BCrypt.gensalt(3));
+		//password = BCrypt.hashpw(password, BCrypt.gensalt(5));
 
 		params.put("firstname", firstName);
 		params.put("secondname", lastName);
@@ -87,8 +98,7 @@ public class UbetApi {
 	}
 
 	public static InputStream ubetApiCall(String url,
-			TreeMap<String, String> params) throws ClientProtocolException,
-			IOException, AuthenticationException, ubetInternalError {
+			TreeMap<String, String> params) throws Exception {
 
 		Uri.Builder builder = new Uri.Builder();
 		builder.scheme(SCHEME);
@@ -124,7 +134,7 @@ public class UbetApi {
 			throw new ubetInternalError();
 		}
 	}
-
+/*
 	public static InputStream ubetApiCall(String url,
 			TreeMap<String, String> params, Account account, Context context)
 			throws Exception {
@@ -197,6 +207,6 @@ public class UbetApi {
 
 			throw new ubetInternalError();
 		}
-	}
+	}*/
 
 }

@@ -1,6 +1,6 @@
 package com.ubet.activity;
 
-import com.ubet.R;
+import com.example.ubet.R;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;

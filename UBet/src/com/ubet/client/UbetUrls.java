@@ -4,13 +4,13 @@ public class UbetUrls {
 	/**
 	 * User's URLs
 	 */
-	public static final String CREATE_USER_URL = "ubet/users/createuser";
-	public static final String LOGIN_USER_URL = "ubet/users/login";
-	public static final String CHANGE_PASSWORD_URL = "ubet/users/changepassword";
-	public static final String REFRESH_TOKEN_URL = "ubet/users/refreshtoken";
-	public static final String LOGOFF_USER_URL = "ubet/users/logoff";
-	public static final String GET_COINS_USER_URL = "ubet/users/getcoins";
-	public static final String GET_SCORE_USER_URL = "ubet/users/getscore";
+	public static final String CREATE_USER_URL = "users/createuser";
+	public static final String LOGIN_USER_URL = "users/login";
+	public static final String CHANGE_PASSWORD_URL = "users/changepassword";
+	public static final String REFRESH_TOKEN_URL = "users/refreshtoken";
+	public static final String LOGOFF_USER_URL = "users/logoff";
+	public static final String GET_COINS_USER_URL = "users/getcoins";
+	public static final String GET_SCORE_USER_URL = "users/getscore";
 	
 	/**
 	 * Room's URLs

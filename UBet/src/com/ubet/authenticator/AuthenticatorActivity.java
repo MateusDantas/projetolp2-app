@@ -1,7 +1,8 @@
 package com.ubet.authenticator;
 
-import com.example.ubet.R;
 import com.ubet.Constants;
+import com.example.ubet.R;
+import com.ubet.activity.TestActivity;
 import com.ubet.client.UbetApi;
 
 import android.accounts.Account;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -46,6 +48,13 @@ public class AuthenticatorActivity extends FragmentActivity {
 	public void onCreate(Bundle instanceBundle) {
 		
 		super.onCreate(instanceBundle);
+		
+		authResponse = getIntent().getParcelableExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE);
+		
+		if (authResponse != null) {
+			authResponse.onRequestContinued();
+		}
+		
 		accountManager = AccountManager.get(this);
 		
 		final Intent intent = getIntent();
@@ -53,29 +62,35 @@ public class AuthenticatorActivity extends FragmentActivity {
 		username = intent.getStringExtra(USERNAME_PARAM);
 		confirmCredentials = intent.getBooleanExtra(CONFIRM_CREDENTIALS_PARAM, false);
 		
-		requestWindowFeature(Window.FEATURE_LEFT_ICON);
-		setContentView(R.layout.activity_login);
+		//requestWindowFeature(Window.FEATURE_LEFT_ICON);
+		setContentView(R.layout.activity_authenticator);
 		
-		getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, android.R.drawable.ic_dialog_alert);
+		//getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, android.R.drawable.ic_dialog_alert);
 		
 		usernameEdit = (EditText) findViewById(R.id.username);
 		passwordEdit = (EditText) findViewById(R.id.password);
+		message = (TextView) findViewById(R.id.message);
 		
-		if (!TextUtils.isEmpty(username)) {
+		
+		if (username != null && !TextUtils.isEmpty(username)) {
 			usernameEdit.setText(username);
 			passwordEdit.requestFocus();
 		}
-		
-		message.setText(getMessage());
+	
 	}
 
+	
 	public void handleLogin(View view) {
 		
 		password = passwordEdit.getText().toString();
+		username = usernameEdit.getText().toString();
+
+		Log.d("LOGIN", "ENTER LOGIN");
 		
 		if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
 			message.setText(getMessage());
 		} else {
+			Log.d("LOGIN", "handling log");
 			showProgress();
 			authTask = new UserLoginTask();
 			authTask.execute();
@@ -107,16 +122,19 @@ public class AuthenticatorActivity extends FragmentActivity {
 		
 		setAccountAuthenticatorResult(intent.getExtras());
 		setResult(RESULT_OK, intent);
+
 		finish();
+		Intent newIntent = new Intent(this, TestActivity.class);
+		startActivity(newIntent);
 	}
 	
 	private CharSequence getMessage() {
 		
 		if (TextUtils.isEmpty(username)) {
-			return getText(R.string.login_missing_username);
+			return getText(R.string.missing_username);
 		} 
 		if (TextUtils.isEmpty(password)) {
-			return getText(R.string.login_missing_password);
+			return getText(R.string.missing_password);
 		}
 		return null;
 	}
@@ -154,16 +172,18 @@ public class AuthenticatorActivity extends FragmentActivity {
 
 	private void showProgress() {
 		
-		progressDialog = ProgressDialogFragment.newInstance();
-		progressDialog.show(getSupportFragmentManager(), "dialog");
+		final View linear = findViewById(R.id.login_status);
+		final View loginForm = findViewById(R.id.login_form);
+		linear.setVisibility(View.VISIBLE);
+		loginForm.setVisibility(View.INVISIBLE);
 	}
 
 	private void hideProgress() {
 		
-		if (progressDialog != null) {
-			progressDialog.dismiss();
-			progressDialog = null;
-		}
+		final View linear = findViewById(R.id.login_status);
+		final View loginForm = findViewById(R.id.login_form);
+		linear.setVisibility(View.GONE);
+		loginForm.setVisibility(View.VISIBLE);
 		
 	}
 
@@ -177,6 +197,7 @@ public class AuthenticatorActivity extends FragmentActivity {
 			authResponse = null;
 		}
 		super.finish();
+		
 	}
 
 	public class UserLoginTask extends AsyncTask<Void, Void, String> {
@@ -185,8 +206,13 @@ public class AuthenticatorActivity extends FragmentActivity {
 		protected String doInBackground(Void... params) {
 			
 			try {
-				return UbetApi.authenticateUser(username, password);
+				Log.d("TUDO OK", "de boa vei");
+				String authToken = UbetApi.authenticateUser(username, password);
+				if (authToken == null)
+					Log.d("TOKEN", "null found");
+				return authToken;
 			} catch (Exception e) {
+				Log.d("EXCEPTION", e.getMessage().toString());
 				return null;
 			}
 		}

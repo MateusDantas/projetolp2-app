@@ -30,7 +30,7 @@ public class HttpClientFactory {
 		ConnManagerParams.setTimeout(params, REQUEST_TIMEOUT);
 	
 		SchemeRegistry schemeRegistry = new SchemeRegistry();
-		schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 8080));
+		schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
 		schemeRegistry.register(new Scheme("https", PlainSocketFactory.getSocketFactory(), 443));
 		
 		ClientConnectionManager manager = new ThreadSafeClientConnManager(params, schemeRegistry);

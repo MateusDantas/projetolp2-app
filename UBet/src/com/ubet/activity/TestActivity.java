@@ -1,12 +1,13 @@
 package com.ubet.activity;
 
 import com.example.ubet.R;
-import com.ubet.authenticator.AuthenticatorActivity;
+import com.example.ubet.R.id;
+import com.example.ubet.R.layout;
+import com.example.ubet.R.menu;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,12 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class StartActivity extends ActionBarActivity {
+public class TestActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_start);
+		setContentView(R.layout.activity_test);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -32,7 +33,7 @@ public class StartActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.start, menu);
+		getMenuInflater().inflate(R.menu.test, menu);
 		return true;
 	}
 
@@ -47,22 +48,7 @@ public class StartActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	//When login button clicked
-	public void goLogin(View view) {
-		Intent intent = new Intent(this, AuthenticatorActivity.class);
 
-		startActivity(intent);
-	}
-
-	//When register button clicked
-	public void goRegister(View view) {
-		Intent intent = new Intent(this, RegisterActivity.class);
-
-		startActivity(intent);
-	}
-	
-	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
@@ -74,8 +60,8 @@ public class StartActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_start,
-					container, false);
+			View rootView = inflater.inflate(R.layout.fragment_test, container,
+					false);
 			return rootView;
 		}
 	}
