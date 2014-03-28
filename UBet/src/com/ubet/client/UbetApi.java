@@ -134,7 +134,7 @@ public abstract class UbetApi {
 			throw new ubetInternalError();
 		}
 	}
-/*
+
 	public static InputStream ubetApiCall(String url,
 			TreeMap<String, String> params, Account account, Context context)
 			throws Exception {
@@ -150,12 +150,8 @@ public abstract class UbetApi {
 
 			authToken = manager.blockingGetAuthToken(account,
 					Variables.AUTH_TOKEN_TYPE, true);
-		} catch (OperationCanceledException e) {
-
-			e.printStackTrace();
-		} catch (AuthenticatorException e) {
-
-			e.printStackTrace();
+		} catch (Exception e) {
+			return null;
 		}
 
 		params.put("token", authToken);
@@ -194,12 +190,9 @@ public abstract class UbetApi {
 
 				authToken = manager.blockingGetAuthToken(account,
 						Variables.AUTH_TOKEN_TYPE, true);
-			} catch (OperationCanceledException e) {
-
-				e.printStackTrace();
-			} catch (AuthenticatorException e) {
-
-				e.printStackTrace();
+			} catch (Exception e) {
+				
+				return null;
 			}
 
 			throw new AuthenticationException();
@@ -207,6 +200,6 @@ public abstract class UbetApi {
 
 			throw new ubetInternalError();
 		}
-	}*/
+	}
 
 }

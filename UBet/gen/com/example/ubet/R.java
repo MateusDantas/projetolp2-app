@@ -1113,15 +1113,13 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030015;
         public static final int abc_search_view=0x7f030016;
         public static final int activity_authenticator=0x7f030017;
-        public static final int activity_login=0x7f030018;
-        public static final int activity_register=0x7f030019;
-        public static final int activity_start=0x7f03001a;
-        public static final int activity_test=0x7f03001b;
-        public static final int fragment_login=0x7f03001c;
-        public static final int fragment_register=0x7f03001d;
-        public static final int fragment_start=0x7f03001e;
-        public static final int fragment_test=0x7f03001f;
-        public static final int support_simple_spinner_dropdown_item=0x7f030020;
+        public static final int activity_register=0x7f030018;
+        public static final int activity_start=0x7f030019;
+        public static final int activity_test=0x7f03001a;
+        public static final int fragment_register=0x7f03001b;
+        public static final int fragment_start=0x7f03001c;
+        public static final int fragment_test=0x7f03001d;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001e;
     }
     public static final class menu {
         public static final int authenticator=0x7f0d0000;
@@ -1171,25 +1169,59 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
-        public static final int action_forgot_password=0x7f0b0025;
+        public static final int action_forgot_password=0x7f0b0043;
         public static final int action_settings=0x7f0b000e;
-        public static final int action_sign_in_register=0x7f0b0023;
-        public static final int action_sign_in_short=0x7f0b0024;
+        public static final int action_sign_in_register=0x7f0b0041;
+        public static final int action_sign_in_short=0x7f0b0042;
         public static final int app_name=0x7f0b000d;
         public static final int button_login=0x7f0b0011;
         public static final int button_register=0x7f0b0012;
-        public static final int error_field_required=0x7f0b002a;
-        public static final int error_incorrect_password=0x7f0b0029;
-        public static final int error_invalid_email=0x7f0b0027;
-        public static final int error_invalid_password=0x7f0b0028;
+        /** 
+    Error's handling messages!
+    
+         */
+        public static final int erro0=0x7f0b0023;
+        public static final int erro1=0x7f0b0024;
+        public static final int erro10=0x7f0b002d;
+        public static final int erro11=0x7f0b002e;
+        public static final int erro12=0x7f0b002f;
+        public static final int erro13=0x7f0b0030;
+        public static final int erro14=0x7f0b0031;
+        public static final int erro15=0x7f0b0032;
+        public static final int erro16=0x7f0b0033;
+        public static final int erro17=0x7f0b0034;
+        public static final int erro18=0x7f0b0035;
+        public static final int erro19=0x7f0b0036;
+        public static final int erro20=0x7f0b0037;
+        public static final int erro21=0x7f0b0038;
+        public static final int erro22=0x7f0b0039;
+        public static final int erro23=0x7f0b003a;
+        public static final int erro24=0x7f0b003b;
+        public static final int erro25=0x7f0b003c;
+        public static final int erro26=0x7f0b003d;
+        public static final int erro27=0x7f0b003e;
+        public static final int erro28=0x7f0b003f;
+        public static final int erro3=0x7f0b0026;
+        public static final int erro4=0x7f0b0027;
+        public static final int erro5=0x7f0b0028;
+        public static final int erro6=0x7f0b0029;
+        public static final int erro7=0x7f0b002a;
+        public static final int erro8=0x7f0b002b;
+        public static final int erro9=0x7f0b002c;
+        public static final int error_field_required=0x7f0b0048;
+        public static final int error_incorrect_password=0x7f0b0047;
+        public static final int error_invalid_email=0x7f0b0045;
+        public static final int error_invalid_password=0x7f0b0046;
         public static final int hello_world=0x7f0b0019;
-        public static final int login_fail=0x7f0b001f;
-        public static final int login_progress_signing_in=0x7f0b0026;
-        public static final int missing_email=0x7f0b001e;
-        public static final int missing_firstname=0x7f0b001c;
-        public static final int missing_password=0x7f0b001b;
-        public static final int missing_secondname=0x7f0b001d;
-        public static final int missing_username=0x7f0b001a;
+        public static final int loading_message=0x7f0b001a;
+        public static final int login_fail=0x7f0b0020;
+        public static final int login_progress_signing_in=0x7f0b0044;
+        public static final int missing_email=0x7f0b001f;
+        public static final int missing_firstname=0x7f0b001d;
+        public static final int missing_password=0x7f0b001c;
+        public static final int missing_secondname=0x7f0b001e;
+        public static final int missing_username=0x7f0b001b;
+        public static final int one_account_allowed=0x7f0b0025;
         public static final int prompt_birthday=0x7f0b0018;
         /**  Strings related to login 
          */
@@ -1198,11 +1230,11 @@ containing a value of this type.
         public static final int prompt_password=0x7f0b0015;
         public static final int prompt_secondname=0x7f0b0017;
         public static final int prompt_username=0x7f0b0014;
-        public static final int title_activity_authenticator=0x7f0b0022;
+        public static final int title_activity_authenticator=0x7f0b0040;
         public static final int title_activity_login=0x7f0b000f;
         public static final int title_activity_register=0x7f0b0010;
-        public static final int title_activity_test=0x7f0b0021;
-        public static final int ui_authenticating=0x7f0b0020;
+        public static final int title_activity_test=0x7f0b0022;
+        public static final int ui_authenticating=0x7f0b0021;
     }
     public static final class style {
         /** 
@@ -1423,6 +1455,7 @@ containing a value of this type.
     }
     public static final class xml {
         public static final int authenticator=0x7f050000;
+        public static final int prefs=0x7f050001;
     }
     public static final class styleable {
         /**  ============================================ 

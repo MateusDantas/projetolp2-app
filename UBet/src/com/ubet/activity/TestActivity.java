@@ -1,19 +1,32 @@
 package com.ubet.activity;
 
+import java.io.IOException;
+
 import com.example.ubet.R;
 import com.example.ubet.R.id;
 import com.example.ubet.R.layout;
 import com.example.ubet.R.menu;
+import com.ubet.Constants;
+import com.ubet.client.UbetAccount;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.os.Build;
 
 public class TestActivity extends ActionBarActivity {
@@ -23,10 +36,29 @@ public class TestActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_test);
 
+		Context context = getApplicationContext();
+		
+		if (!UbetAccount.isUserLoggedIn(context)) {
+			Toast.makeText(context, "Unauthorized Acess!", Toast.LENGTH_LONG).show();
+			finish();
+		}
+		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
+		/*AccountManager accountManager = AccountManager.get(context);
+		
+		Account [] accounts = accountManager.getAccounts();
+		
+		for (int i = 0; i < accounts.length; i++) {
+			accountManager.removeAccount(accounts[i], null, null);
+		}
+		
+		Intent intent = new Intent(this, StartActivity.class);
+		startActivity(intent);
+		finish();*/
 	}
 
 	@Override

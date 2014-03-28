@@ -16,6 +16,8 @@
     <string name="prompt_birthday">What\'s your birthday date?</string>
     <string name="hello_world">Hello world!</string>
     
+    <string name="loading_message">Loading...</string>
+    
     <string name="missing_username">Missing Username</string>
     <string name="missing_password">Missing Password</string>
     <string name="missing_firstname">Missing First Name</string>
@@ -24,5 +26,39 @@
     <string name="login_fail">Could not authenticate user! Try Again!</string>
     <string name="ui_authenticating">Checking your credentials! Be Patience!</string>
     <string name="title_activity_test">TestActivity</string>
+    
+    <!--
+    Error's handling messages!
+    -->
+    <string name="erro0"></string>
+    <string name="erro1"></string>
+    <string name="one_account_allowed">One Account Allowed</string>
+    <string name="erro3">Username already exists!</string>
+    <string name="erro4">Email already exists!</string>
+    <string name="erro5">Invalid email!</string>
+    <string name="erro6">Invalid username!</string>
+    <string name="erro7">All right bro!</string>
+    <string name="erro8">Connection error!</string>
+    <string name="erro9">Unknown error!</string>
+    <string name="erro10">Server is down!</string>
+    <string name="erro11">Internal Error</string>
+    <string name="erro12">Internal Error!</string>
+    <string name="erro13">Invalid name!</string>
+    <string name="erro14">Invalid password!</string>
+    <string name="erro15">User does not exist!</string>
+    <string name="erro16">Invalid type!</string>
+    <string name="erro17">Invalid admin user!</string>
+    <string name="erro18">Invalid price room!</string>
+    <string name="erro19">Invalid status!</string>
+    <string name="erro20">Room already exists!</string>
+    <string name="erro21">Invalid room!</string>
+    <string name="erro22">Invalid game!</string>
+    <string name="erro23">Invalid round!</string>
+    <string name="erro24">Invalid player!</string>
+    <string name="erro25">Rooms limit exceeded!</string>
+    <string name="erro26">Internal error!</string>
+    <string name="erro27">Insuficient Coins</string>
+    <string name="erro28">Request unauthorized!</string>
+
 
 </resources>

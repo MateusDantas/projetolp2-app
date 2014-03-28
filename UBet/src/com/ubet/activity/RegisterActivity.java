@@ -7,6 +7,7 @@ import org.jsoup.nodes.Document;
 
 import com.example.ubet.R;
 import com.ubet.authenticator.AuthenticatorActivity;
+import com.ubet.client.UbetAccount;
 import com.ubet.client.UbetApi;
 
 import android.support.v7.app.ActionBarActivity;
@@ -14,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,14 +35,26 @@ public class RegisterActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		redirectIfIsLoggedIn();
+		
 		setContentView(R.layout.activity_register);
-
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
+	public void redirectIfIsLoggedIn() {
+		
+		Context context = getApplicationContext();
+		if (UbetAccount.isUserLoggedIn(context)) {
+			final Intent intent = new Intent(context, TestActivity.class);
+			startActivity(intent);
+			finish();
+		}
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -63,7 +77,7 @@ public class RegisterActivity extends ActionBarActivity {
 
 	// When register button clicked
 	public void register(View view) {
-		int language = 0;
+
 		EditText firstNameEdit = (EditText) findViewById(R.id.firstName);
 		EditText secondNameEdit = (EditText) findViewById(R.id.secondName);
 		EditText usernameEdit = (EditText) findViewById(R.id.username);
@@ -79,10 +93,11 @@ public class RegisterActivity extends ActionBarActivity {
 		email = emailEdit.getText().toString();
 
 		if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(secondName)
-				|| TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+				|| TextUtils.isEmpty(username) || TextUtils.isEmpty(password)
+				|| TextUtils.isEmpty(email)) {
 			messageView.setText(getMessage());
 		} else {
-			
+			messageView.setText("Loading...");
 			RegisterTask registerUser = new RegisterTask();
 			registerUser.execute();
 		}
@@ -95,54 +110,72 @@ public class RegisterActivity extends ActionBarActivity {
 		if (TextUtils.isEmpty(secondName)) {
 			return getText(R.string.missing_secondname);
 		}
+		if (TextUtils.isEmpty(email)) {
+			return getText(R.string.missing_email);
+		}
 		if (TextUtils.isEmpty(username)) {
 			return getText(R.string.missing_username);
 		}
 		if (TextUtils.isEmpty(password)) {
 			return getText(R.string.missing_password);
 		}
+		
 		return null;
 	}
 
-	public void onRegisterResult(int resultCode) {
+	public CharSequence getError(int pId) {
+		String errorString = "erro" + String.valueOf(pId);
 		
+		String packageName = getPackageName();
+	    int resId = getResources()
+	            .getIdentifier(errorString, "string", packageName);
+	    
+		return getString(resId);
+	}
+	
+	public void onRegisterResult(int resultCode) {
+
 		TextView messageView = (TextView) findViewById(R.id.message);
 		if (resultCode == 7) {
+			messageView.setText("");
 			Intent intent = new Intent(this, AuthenticatorActivity.class);
 			startActivity(intent);
 		} else {
-			messageView.setText("Something went wrong! Try Again!");
+			messageView.setText(getError(resultCode));
 		}
 	}
-	
+
 	public class RegisterTask extends AsyncTask<Void, Void, Integer> {
 
 		@Override
 		protected Integer doInBackground(Void... params) {
-			
+
 			try {
-				InputStream instream = UbetApi.ubetRegister(firstName,secondName, email, username, password, 0);
+				InputStream instream = UbetApi.ubetRegister(firstName,
+						secondName, email, username, password, 0);
 				if (instream == null)
 					return 0;
-				Document doc = Jsoup.parse(instream, "UTF-8","http://ubet.herokuapp.com");
-				int resultCode = Integer.valueOf(doc.select("div#returnCode").html());
-				
+				Document doc = Jsoup.parse(instream, "UTF-8",
+						"http://ubet.herokuapp.com");
+				int resultCode = Integer.valueOf(doc.select("div#returnCode")
+						.html());
+
 				return resultCode;
 			} catch (Exception e) {
-				
+
 				e.printStackTrace();
 				return 0;
 			}
 		}
-		
+
 		@Override
 		protected void onPostExecute(final Integer resultCode) {
-			
+
 			onRegisterResult(resultCode);
 		}
-		
+
 	}
-	
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

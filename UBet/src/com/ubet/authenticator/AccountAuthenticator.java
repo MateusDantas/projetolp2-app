@@ -1,5 +1,6 @@
 package com.ubet.authenticator;
 
+import com.example.ubet.R;
 import com.ubet.Constants;
 import com.ubet.client.UbetApi;
 
@@ -7,10 +8,16 @@ import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorResponse;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
 import android.accounts.NetworkErrorException;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
 
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
@@ -28,11 +35,23 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 			String[] requiredFeatures, Bundle options)
 			throws NetworkErrorException {
 
+		AccountManager accountManager = AccountManager.get(context);
+		Account [] accounts = accountManager.getAccountsByType(Constants.ACCOUNT_TYPE);
+		
+		if (accounts.length >= 1) {
+			final Bundle result = new Bundle();
+			result.putInt(AccountManager.KEY_ERROR_CODE, R.string.one_account_allowed);
+			result.putString(AccountManager.KEY_ERROR_MESSAGE, context.getString(R.string.one_account_allowed));
+			
+			handler.sendEmptyMessage(2);
+			
+			return result;
+		}
+		
 		final Bundle result;
 		final Intent intent;
 
 		intent = new Intent(this.context, AuthenticatorActivity.class);
-		intent.putExtra(Constants.AUTH_TOKEN_TYPE, authTokenType);
 		intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
 				response);
 
@@ -41,6 +60,15 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
 		return result;
 	}
+
+	private Handler	 handler = new Handler() {
+		@Override
+		public void handleMessage(android.os.Message msg) {
+			if (msg.what == 2)
+				Toast.makeText(context, "Only one account is supported", Toast.LENGTH_SHORT).show();
+		};
+	};
+	
 
 	@Override
 	public Bundle confirmCredentials(AccountAuthenticatorResponse response,
