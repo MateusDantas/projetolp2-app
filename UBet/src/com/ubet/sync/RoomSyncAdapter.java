@@ -13,7 +13,6 @@ public class RoomSyncAdapter extends AbstractThreadedSyncAdapter {
 	private final Context context;
 	private Account account;
 	private final AccountManager accountManager;
-	
 	public RoomSyncAdapter(Context context, boolean autoInitialize) {
 		super(context, autoInitialize);
 		this.context = context;

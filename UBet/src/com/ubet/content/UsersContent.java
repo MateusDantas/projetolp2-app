@@ -3,7 +3,6 @@ package com.ubet.content;
 public class UsersContent {
 
 	private static String name;
-	
 	public UsersContent(String username) {
 		UsersContent.setName(username);
 	}

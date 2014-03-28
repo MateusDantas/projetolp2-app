@@ -153,7 +153,7 @@ public abstract class UbetApi {
 		} catch (Exception e) {
 			return null;
 		}
-
+		
 		if (authToken == null)
 			return null;
 		

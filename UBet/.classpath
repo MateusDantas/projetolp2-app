@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-<<<<<<< HEAD
-	<classpathentry kind="src" path="assets"/>
-	<classpathentry kind="lib" path="/home/mdantas/Desktop/projetolp2-app/UBet/libs/jsoup-1.7.3.jar"/>
-=======
-	<classpathentry kind="lib" path="/home/gustavo/git/projetolp2-app/UBet/libs/jsoup-1.7.3.jar"/>
->>>>>>> aecba1756b77f3fc5033ba59ecdade237e04cf18
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

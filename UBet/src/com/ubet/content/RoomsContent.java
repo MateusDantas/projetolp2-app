@@ -5,7 +5,6 @@ public class RoomsContent {
 	private static String adminName;
 	private static String roomName;
 	private static int roomId;
-	
 	public boolean isPublicRoom;
 	
 	public RoomsContent(int roomId, String roomName, String adminName) {
