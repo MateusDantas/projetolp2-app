@@ -70,6 +70,12 @@
             android:label="@string/title_activity_test" >
         </activity>
         
+        <activity
+            android:name="com.ubet.activity.RoomsActivity"
+            android:label="@string/title_activity_rooms" >
+        </activity>
+        
+        
     </application>
 
 </manifest>

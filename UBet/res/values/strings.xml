@@ -27,6 +27,14 @@
     <string name="ui_authenticating">Checking your credentials! Be Patience!</string>
     <string name="title_activity_test">TestActivity</string>
     
+    <!-- 
+    Rooms Activity Strings
+     -->
+    <string name="title_activity_rooms">Rooms</string>
+    <string name="textView_rooms">Rooms</string>
+    <string name="button_profile">Profile</string>
+    <string name="button_ranking">Ranking</string>
+    
     <!--
     Error's handling messages!
     -->

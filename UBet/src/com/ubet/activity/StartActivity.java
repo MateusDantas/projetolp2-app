@@ -44,7 +44,7 @@ public class StartActivity extends ActionBarActivity {
 		
 		Context context = getApplicationContext();
 		if (UbetAccount.isUserLoggedIn(context)) {
-			final Intent intent = new Intent(context, TestActivity.class);
+			final Intent intent = new Intent(context, RoomsActivity.class);
 			startActivity(intent);
 			finish();
 		}
