@@ -45,7 +45,7 @@ public abstract class UbetApi {
 		builder.authority(UBET_AUTHORITY);
 		builder.appendEncodedPath(UbetUrls.LOGIN_USER_URL);
 		builder.appendQueryParameter("username", username);
-		//password = BCrypt.hashpw(password, BCrypt.gensalt(5));
+		password = BCrypt.hashpw(password, BCrypt.gensalt(5));
 		builder.appendQueryParameter("password", password);
 
 		Uri uri = builder.build();
@@ -85,7 +85,7 @@ public abstract class UbetApi {
 
 		TreeMap<String, String> params = new TreeMap<String, String>();
 
-		//password = BCrypt.hashpw(password, BCrypt.gensalt(5));
+		password = BCrypt.hashpw(password, BCrypt.gensalt(5));
 
 		params.put("firstname", firstName);
 		params.put("secondname", lastName);
@@ -154,6 +154,9 @@ public abstract class UbetApi {
 			return null;
 		}
 
+		if (authToken == null)
+			return null;
+		
 		params.put("token", authToken);
 
 		Uri.Builder builder = new Uri.Builder();

@@ -7,7 +7,7 @@ import com.example.ubet.R.id;
 import com.example.ubet.R.layout;
 import com.example.ubet.R.menu;
 import com.ubet.Constants;
-import com.ubet.client.UbetAccount;
+import com.ubet.util.UbetAccount;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;

@@ -3,8 +3,8 @@ package com.ubet.authenticator;
 import com.ubet.Constants;
 import com.example.ubet.R;
 import com.ubet.activity.TestActivity;
-import com.ubet.client.UbetAccount;
 import com.ubet.client.UbetApi;
+import com.ubet.util.UbetAccount;
 
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;

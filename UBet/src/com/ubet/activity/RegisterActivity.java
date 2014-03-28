@@ -7,8 +7,8 @@ import org.jsoup.nodes.Document;
 
 import com.example.ubet.R;
 import com.ubet.authenticator.AuthenticatorActivity;
-import com.ubet.client.UbetAccount;
 import com.ubet.client.UbetApi;
+import com.ubet.util.UbetAccount;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
