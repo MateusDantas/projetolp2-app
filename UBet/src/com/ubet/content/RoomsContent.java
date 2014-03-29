@@ -8,36 +8,36 @@ public class RoomsContent {
 	public boolean isPublicRoom;
 	
 	public RoomsContent(int roomId, String roomName, String adminName) {
-		RoomsContent.setAdminName(adminName);
-		RoomsContent.setRoomName(roomName);
-		RoomsContent.setRoomId(roomId);
+		this.setAdminName(adminName);
+		this.setRoomName(roomName);
+		this.setRoomId(roomId);
 		if (adminName.equals("lobby"))
 			this.isPublicRoom = true;
 		else
 			this.isPublicRoom = false;
 	}
 
-	public static String getAdminName() {
+	public String getAdminName() {
 		return adminName;
 	}
 
-	private static void setAdminName(String adminName) {
+	private void setAdminName(String adminName) {
 		RoomsContent.adminName = adminName;
 	}
 
-	public static String getRoomName() {
+	public String getRoomName() {
 		return roomName;
 	}
 
-	private static void setRoomName(String roomName) {
+	private void setRoomName(String roomName) {
 		RoomsContent.roomName = roomName;
 	}
 
-	public static int getRoomId() {
+	public int getRoomId() {
 		return roomId;
 	}
 
-	private static void setRoomId(int roomId) {
+	private void setRoomId(int roomId) {
 		RoomsContent.roomId = roomId;
 	}
 	

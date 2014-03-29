@@ -56,6 +56,39 @@ public class RoomsApi {
 		return listOfRooms;
 	}
 
+	public static long lastUpdate(String username, Context context) {
+		
+		TreeMap<String, String> params = new TreeMap<String, String>();
+		Account account = UbetAccount.getAccount(context);
+
+		params.put("username", account.name);
+
+		InputStream instream;
+		try {
+			instream = UbetApi.ubetApiCall(UbetUrls.LAST_UPDATE_ROOM, params, account,
+					context);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return 0L;
+		}
+	
+		if (instream == null)
+			return 0L;
+		
+		Document doc;
+		try {
+			doc = Jsoup.parse(instream, "UTF-8", "ubet.herokuapp.com");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return 0L;
+		}
+		
+		if (doc == null)
+			return 0L;
+		
+		return Long.valueOf(doc.select("div#time").html());
+	}
+	
 	public static List<RoomsContent> getRoomsByUser(String username,
 			Context context) throws Exception {
 
@@ -102,7 +135,7 @@ public class RoomsApi {
 		return listOfUsers;
 	}
 
-	public int getPointsByUserInRoom(String username, int roomId,
+	public static int getPointsByUserInRoom(String username, int roomId,
 			Context context) throws Exception {
 
 		TreeMap<String, String> params = new TreeMap<String, String>();
@@ -125,7 +158,7 @@ public class RoomsApi {
 		return Integer.valueOf(doc.select("#points").html());
 	}
 
-	public int createRoom(String name, String username, int priceRoom,
+	public static int createRoom(String name, String username, int priceRoom,
 			int priceExtra, int limExtra, String password, Context context)
 			throws Exception {
 
@@ -153,7 +186,7 @@ public class RoomsApi {
 		return Integer.valueOf(doc.select("div#returnCode").html());
 	}
 
-	public int enterToRoom(String username, String password, int roomId,
+	public static int enterToRoom(String username, String password, int roomId,
 			Context context) throws Exception {
 
 		TreeMap<String, String> params = new TreeMap<String, String>();

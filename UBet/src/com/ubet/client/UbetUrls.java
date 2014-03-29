@@ -21,4 +21,5 @@ public class UbetUrls {
 	public static final String GET_USERS_IN_ROOM = "ubet/rooms/usersinroom";
 	public static final String GET_ROOMS_BY_USER = "ubet/rooms/roomsbyuser";
 	public static final String GET_POINTS_USER_IN_ROOM_URL = "ubet/rooms/pointsuser";
+	public static final String LAST_UPDATE_ROOM = "rooms/lastupdate";
 }
