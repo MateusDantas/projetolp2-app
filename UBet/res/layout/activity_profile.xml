@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+        
+    
+    <ListView
+        android:id="@+id/listView_rooms_registered"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_rooms_registered"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="30dp" >
+    </ListView>
+
+    
+    <TextView
+        android:id="@+id/textView_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="User: &lt;userName>"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView_ubets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_name"
+        android:layout_centerHorizontal="true"
+        android:text="UBets: &lt;Ubets>"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView_rooms_registered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView_name"
+        android:layout_below="@+id/textView_ubets"
+        android:layout_marginTop="21dp"
+        android:text="Registered Rooms"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+</RelativeLayout>

@@ -84,9 +84,9 @@ public class RoomsActivity extends Activity {
     
 	//When Profile button clicked
 	public void goProfile(View view) {
-		//Intent intent = new Intent(this, ProfileActivity.class);
+		Intent intent = new Intent(this, ProfileActivity.class);
 
-		//startActivity(intent);
+		startActivity(intent);
 	}
 	
     

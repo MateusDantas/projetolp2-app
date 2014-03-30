@@ -28,6 +28,7 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_room">Room</string>
     <string name="title_activity_ranking">Ranking</string>
+    <string name="title_activity_profile">Profile</string>
   
     <!-- 
     Rooms Activity Strings
