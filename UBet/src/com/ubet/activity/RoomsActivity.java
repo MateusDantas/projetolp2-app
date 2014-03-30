@@ -22,7 +22,7 @@ public class RoomsActivity extends Activity {
 	 
 	List<String> rooms;
 	ListView list;
-	RoomsActivity thisone = this;
+	RoomsActivity thisActivity = this;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +37,14 @@ public class RoomsActivity extends Activity {
         rooms.add("Public Room 2");
         rooms.add("Public Room 3");        
         
-        list = (ListView) findViewById(R.id.listView1);
+        list = (ListView) findViewById(R.id.listView_rooms);
         
         //this magically show the rooms in the arraylist rooms
         //now they are clickable
         showRooms();
     }
     
-    public void showRooms() {
+    private void showRooms() {
 
     	ArrayAdapter<String> adp = new ArrayAdapter<String> 
 		(getBaseContext(),R.layout.rooms_list,rooms);
@@ -59,12 +59,13 @@ public class RoomsActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				
+				// Used to be used to show that was clicable
 				/*
 				Toast.makeText(getBaseContext(), rooms.get(arg2) + " clicked!",
 					Toast.LENGTH_SHORT).show();
 				*/
 				
-				Intent intent = new Intent(thisone, RoomActivity.class);
+				Intent intent = new Intent(thisActivity, RoomActivity.class);
 				
 				intent.putExtra("name", rooms.get(arg2));
 				
@@ -74,6 +75,20 @@ public class RoomsActivity extends Activity {
 		
     }
     
+	//When ranking button clicked
+	public void goRanking(View view) {
+		Intent intent = new Intent(this, RankingActivity.class);
+
+		startActivity(intent);
+	}
+    
+	//When Profile button clicked
+	public void goProfile(View view) {
+		//Intent intent = new Intent(this, ProfileActivity.class);
+
+		//startActivity(intent);
+	}
+	
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

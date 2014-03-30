@@ -84,6 +84,16 @@
                 android:value="com.ubet.activity.RoomsActivity" />
         </activity>
         
+        <activity
+            android:name="com.ubet.activity.RankingActivity"
+            android:label="@string/title_activity_ranking" 
+            android:parentActivityName="com.ubet.activity.RoomsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ubet.activity.RoomsActivity" />
+        </activity>
+        
+        
     </application>
 
 </manifest>

@@ -27,7 +27,8 @@
     <string name="ui_authenticating">Checking your credentials! Be Patience!</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_room">Room</string>
-    
+    <string name="title_activity_ranking">Ranking</string>
+  
     <!-- 
     Rooms Activity Strings
      -->

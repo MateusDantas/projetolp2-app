@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
  
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/listView_rooms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_ranking"
@@ -27,7 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="@string/button_profile" />
+        android:text="@string/button_profile" 
+        android:onClick="goProfile"/>
 
     <Button
         android:id="@+id/button_ranking"
@@ -35,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/button_ranking" />
+        android:text="@string/button_ranking"
+        android:onClick="goRanking"/>
  
 </RelativeLayout>
