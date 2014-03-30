@@ -3,8 +3,11 @@ package com.ubet.activity;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.ubet.R;
+import com.ubet.authenticator.AuthenticatorActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +22,7 @@ public class RoomsActivity extends Activity {
 	 
 	List<String> rooms;
 	ListView list;
+	RoomsActivity thisone = this;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +58,17 @@ public class RoomsActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
+				
+				/*
 				Toast.makeText(getBaseContext(), rooms.get(arg2) + " clicked!",
 					Toast.LENGTH_SHORT).show();
+				*/
+				
+				Intent intent = new Intent(thisone, RoomActivity.class);
+				
+				intent.putExtra("name", rooms.get(arg2));
+				
+				startActivity(intent);
 			}
 		});
 		
@@ -65,7 +77,7 @@ public class RoomsActivity extends Activity {
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.start, menu);
+        getMenuInflater().inflate(R.menu.no_menu, menu);
         return true;
     }    
 }

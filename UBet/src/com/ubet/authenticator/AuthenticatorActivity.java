@@ -56,7 +56,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
 		if (username != null && !TextUtils.isEmpty(username)) {
 			usernameEdit.setText(username);
-			passwordEdit.requestFocus();
+			//passwordEdit.requestFocus();
 		}
 
 	}
