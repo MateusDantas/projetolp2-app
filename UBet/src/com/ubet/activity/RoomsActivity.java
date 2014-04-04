@@ -74,9 +74,6 @@ public class RoomsActivity extends Activity {
 		public void run() {
 
 			checkAuthenticateUser();
-			setRefreshActionButtonState(true);
-			RoomsTask newTask = new RoomsTask();
-			newTask.execute();
 			handler.postDelayed(this, 60000L);
 		}
 	};
