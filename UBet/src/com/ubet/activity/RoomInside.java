@@ -6,21 +6,28 @@ import java.util.concurrent.Executors;
 
 import com.ubet.Constants;
 import com.ubet.R;
-import com.ubet.activity.RoomsActivity.RoomsContentAdapter;
-import com.ubet.activity.RoomsActivity.RoomsTask;
+import com.ubet.R.id;
+import com.ubet.R.layout;
+import com.ubet.R.menu;
+import com.ubet.activity.ProfileActivity.RoomsContentAdapter;
+import com.ubet.activity.ProfileActivity.RoomsTask;
+import com.ubet.activity.ProfileActivity.UserTask;
 import com.ubet.client.RoomsApi;
-import com.ubet.client.UsersApi;
 import com.ubet.content.RoomsContent;
+import com.ubet.content.UsersContent;
 import com.ubet.util.UbetAccount;
 
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v4.app.Fragment;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,63 +36,60 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.os.Build;
 
-public class ProfileActivity extends Activity {
+public class RoomInside extends Activity {
 
-	List<RoomsContent> rooms = new ArrayList<RoomsContent>();
+	List<UsersContent> users = new ArrayList<UsersContent>();
 	ListView list;
 	private Menu optionsMenu;
 
-	RoomsContentAdapter arrayAdapter = null;
+	UsersContentAdapter arrayAdapter = null;
 
-	private ProfileActivity thisActivity = this;
+	private RoomInside thisActivity = this;
 
 	private Context context;
 	private Account account;
 	private AccountManager accountManager;
 
-	private String username;
-	
-	private TextView usernameView, ubetsView;
-	
-	private int userCoins;
-	
+	private int roomId;
+	private String adminName, roomName;
+
 	Handler handler = new Handler();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_profile);
+		setContentView(R.layout.activity_room_inside);
+
+		
+		
+		context = getApplicationContext();
+		accountManager = AccountManager.get(context);
+		account = UbetAccount.getAccount(context);
 
 		Intent intent = getIntent();
 		
-		context = getApplicationContext();
-		account = UbetAccount.getAccount(context);
-		accountManager = AccountManager.get(context);
-		rooms = new ArrayList<RoomsContent>();
-
-		list = (ListView) findViewById(R.id.listView_rooms_registered);
-
-		usernameView = (TextView) findViewById(R.id.textView_name);
-		ubetsView = (TextView) findViewById(R.id.textView_ubets);
+		roomId = intent.getExtras().getInt("roomid");
+		adminName = intent.getExtras().getString("admin_name");
+		roomName = intent.getExtras().getString("room_name");
 		
-		userCoins = 0;
-		
-		username = intent.getExtras().getString("username");
-		
-		if (username == null) {
+		if (roomId == 0 || adminName == null || roomName == null) {
 			finish();
 		}
 		
-		ubetsView.setText("Coins: " + String.valueOf(userCoins));
-		usernameView.setText("User: " + username);
+		TextView roomNameView = (TextView) findViewById(R.id.room_name);
+		TextView adminNameView = (TextView) findViewById(R.id.admin_name);
+		
+		roomNameView.setText(roomName);
+		adminNameView.setText("Admin: " + adminName);
+		
+		list = (ListView) findViewById(R.id.listView_users_registered);
 		showItens();
 		
 		this.handler.postDelayed(checkRunnable, 500L);
@@ -96,10 +100,8 @@ public class ProfileActivity extends Activity {
 
 			checkAuthenticateUser();
 			setRefreshActionButtonState(true);
-			RoomsTask newTask = new RoomsTask();
-			UserTask userTask = new UserTask();
+			UsersTask userTask = new UsersTask();
 			userTask.executeOnExecutor(Executors.newSingleThreadExecutor());
-			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			handler.postDelayed(this, 60000L);
 		}
 	};
@@ -119,11 +121,11 @@ public class ProfileActivity extends Activity {
 			finish();
 		}
 	}
-
+	
 	private void showItens() {
 
-		arrayAdapter = new RoomsContentAdapter(context, R.layout.rooms_list,
-				rooms);
+		arrayAdapter = new UsersContentAdapter(context, R.layout.users_list,
+				users);
 
 		list.setAdapter(arrayAdapter);
 
@@ -133,13 +135,8 @@ public class ProfileActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
-				Intent intent = new Intent(thisActivity, RoomActivity.class);
-				intent.putExtra("name", rooms.get(arg2).getRoomName());
-				intent.putExtra("admin_name", rooms.get(arg2).getAdminName());
-				intent.putExtra("room_id", rooms.get(arg2).getRoomId());
-				intent.putExtra("price_room", rooms.get(arg2).getPriceRoom());
-				intent.putExtra("people_inside", rooms.get(arg2)
-						.getPeopleInside());
+				Intent intent = new Intent(thisActivity, ProfileActivity.class);
+				intent.putExtra("username", users.get(arg2).getName());
 				startActivity(intent);
 			}
 		});
@@ -150,7 +147,7 @@ public class ProfileActivity extends Activity {
 
 		this.optionsMenu = menu;
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.activity_profile_actions, menu);
+		inflater.inflate(R.menu.activity_room_inside_actions, menu);
 
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -158,34 +155,34 @@ public class ProfileActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-		case R.id.ubet_menu_refresh:
+		case R.id.ubet_menu_room_inside_refresh:
 
 			setRefreshActionButtonState(true);
-			RoomsTask newTask = new RoomsTask();
+			UsersTask newTask = new UsersTask();
 			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
-
-	private void updateRooms(List<RoomsContent> listOfRooms) {
+	
+	private void updateUsers(List<UsersContent> listOfUsers) {
 
 		arrayAdapter.clear();
-		arrayAdapter.addAll(listOfRooms);
+		arrayAdapter.addAll(listOfUsers);
 		arrayAdapter.notifyDataSetChanged();
 	}
 
-	private void onListOfRoomsComplete(List<RoomsContent> listOfRooms) {
+	private void onListOfUsersComplete(List<UsersContent> listOfUsers) {
 
-		updateRooms(listOfRooms);
+		updateUsers(listOfUsers);
 		setRefreshActionButtonState(false);
 	}
 
 	public void setRefreshActionButtonState(final boolean refreshing) {
 		if (optionsMenu != null) {
 			final MenuItem refreshItem = optionsMenu
-					.findItem(R.id.ubet_menu_refresh);
+					.findItem(R.id.ubet_menu_room_inside_refresh);
 
 			if (refreshItem != null) {
 				if (refreshing) {
@@ -205,13 +202,13 @@ public class ProfileActivity extends Activity {
 		setRefreshActionButtonState(false);
 		Toast.makeText(context, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
 	}
-
-	public class RoomsContentAdapter extends ArrayAdapter<RoomsContent> {
+	
+	public class UsersContentAdapter extends ArrayAdapter<UsersContent> {
 
 		private Context context;
 
-		public RoomsContentAdapter(Context context, int textViewResourceId,
-				List<RoomsContent> items) {
+		public UsersContentAdapter(Context context, int textViewResourceId,
+				List<UsersContent> items) {
 			super(context, textViewResourceId, items);
 			this.context = context;
 		}
@@ -222,42 +219,35 @@ public class ProfileActivity extends Activity {
 			if (view == null) {
 				LayoutInflater inflater = (LayoutInflater) context
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				view = inflater.inflate(R.layout.rooms_list, null);
+				view = inflater.inflate(R.layout.users_list, null);
 			}
 
-			RoomsContent item = getItem(position);
+			UsersContent item = getItem(position);
 			if (item != null) {
-				TextView itemViewRoomName = (TextView) view
-						.findViewById(R.id.room_name);
-				TextView itemViewRoomAdminName = (TextView) view
-						.findViewById(R.id.room_admin_name);
-				if (itemViewRoomName != null) {
-					itemViewRoomName.setText(item.getRoomName());
+				TextView itemViewUserName = (TextView) view
+						.findViewById(R.id.user_name);
+				TextView itemViewUserScore = (TextView) view
+						.findViewById(R.id.user_score);
+				if (itemViewUserName != null) {
+					itemViewUserName.setText(item.getName());
 				}
-				if (itemViewRoomAdminName != null) {
-					itemViewRoomAdminName.setText(item.getAdminName());
+				if (itemViewUserScore != null) {
+					itemViewUserScore.setText("Score: " + String.valueOf(item.getScore()));
 				}
 			}
 			return view;
 		}
 	}
 
-	private void onUserTaskResult(Integer coins) {
-		// TODO Auto-generated method stub
-		this.userCoins = coins;
-		ubetsView.setText("Coins: " + String.valueOf(userCoins));
-	}
-	
-	public class RoomsTask extends AsyncTask<Void, Void, List<RoomsContent>> {
+	public class UsersTask extends AsyncTask<Void, Void, List<UsersContent>> {
 
 		@Override
-		protected List<RoomsContent> doInBackground(Void... params) {
+		protected List<UsersContent> doInBackground(Void... params) {
 
 			try {
 
-				List<RoomsContent> listOfRooms = RoomsApi.getRoomsByUser(
-						username, context);
-				return listOfRooms;
+				List<UsersContent> listOfUsers = RoomsApi.getUsersInRoom(roomId, context);
+				return listOfUsers;
 			} catch (Exception e) {
 
 				e.printStackTrace();
@@ -267,39 +257,15 @@ public class ProfileActivity extends Activity {
 		}
 
 		@Override
-		protected void onPostExecute(final List<RoomsContent> listOfRooms) {
+		protected void onPostExecute(final List<UsersContent> listOfUsers) {
 
-			if (listOfRooms == null) {
+			if (listOfUsers == null) {
 				onProcessFailed();
 				return;
 			}
 
-			onListOfRoomsComplete(listOfRooms);
+			onListOfUsersComplete(listOfUsers);
 		}
 	}
-	
-	public class UserTask extends AsyncTask<Void, Void, Integer> {
 
-		@Override
-		protected Integer doInBackground(Void... params) {
-
-			try {
-
-				return UsersApi.getUserCoins(account, context, username);
-			} catch (Exception e) {
-
-				e.printStackTrace();
-				//Log.d("erro", e.getMessage().toString());
-				return 0;
-			}
-		}
-
-		@Override
-		protected void onPostExecute(final Integer coins) {
-
-
-			onUserTaskResult(coins);
-		}
-		
-	}
 }

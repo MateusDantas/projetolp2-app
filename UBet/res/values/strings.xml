@@ -27,7 +27,7 @@
     <string name="title_activity_ranking">Ranking</string>
     <string name="title_activity_profile">Profile</string>
 
-<!--     Rooms Activity Strings -->
+    <!-- Rooms Activity Strings -->
     <string name="title_activity_rooms">Rooms</string>
     <string name="textView_rooms">Rooms</string>
     <string name="button_profile">Profile</string>
@@ -35,21 +35,20 @@
     <string name="menu_item_refresh">Refresh</string>
     <string name="menu_item_add_group">Add Group</string>
     <string name="menu_item_logout">Logout</string>
-    
-    
-<!--  Create Room Activity Strings -->
-	<string name="create_room_name">Room Name</string>
-	<string name="create_room_password">Room Password</string>
-	<string name="create_room_price_room">Room Price</string>
-	<string name="create_room_price_extra">Extra bet\'s price</string>
-	<string name="create_room_lim_extra">Room Extra Limit</string>
-	<string name="missing_room_name">Missing Room Name</string>
-	<string name="missing_room_password">Missing Room Password</string>
-	<string name="missing_room_price_room">Missing Price Room</string>
-	<string name="missing_room_price_extra">Missing Extra Bet\'s Price</string>
-	<string name="missing_room_lim_extra">Missing Extra Bet\'s limit</string>
-    
-<!--     Error's handling messages! -->
+
+    <!-- Create Room Activity Strings -->
+    <string name="create_room_name">Room Name</string>
+    <string name="create_room_password">Room Password</string>
+    <string name="create_room_price_room">Room Price</string>
+    <string name="create_room_price_extra">Extra bet\'s price</string>
+    <string name="create_room_lim_extra">Room Extra Limit</string>
+    <string name="missing_room_name">Missing Room Name</string>
+    <string name="missing_room_password">Missing Room Password</string>
+    <string name="missing_room_price_room">Missing Price Room</string>
+    <string name="missing_room_price_extra">Missing Extra Bet\'s Price</string>
+    <string name="missing_room_lim_extra">Missing Extra Bet\'s limit</string>
+
+    <!-- Error's handling messages! -->
     <string name="erro0"></string>
     <string name="erro1"></string>
     <string name="one_account_allowed">One Account Allowed</string>
@@ -80,5 +79,6 @@
     <string name="erro27">Insuficient Coins</string>
     <string name="erro28">Request unauthorized!</string>
     <string name="title_activity_create_room">Create Room</string>
+    <string name="title_activity_room_inside">Room</string>
 
 </resources>

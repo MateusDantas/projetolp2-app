@@ -96,6 +96,10 @@
             android:name="com.ubet.activity.CreateRoomActivity"
             android:label="@string/title_activity_create_room" >
         </activity>
+        <activity
+            android:name="com.ubet.activity.RoomInside"
+            android:label="@string/title_activity_room_inside" >
+        </activity>
     </application>
 
 </manifest>

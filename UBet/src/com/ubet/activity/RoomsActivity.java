@@ -64,14 +64,10 @@ public class RoomsActivity extends Activity {
 		rooms = new ArrayList<RoomsContent>();
 
 		list = (ListView) findViewById(R.id.listView_rooms);
-
+		
 		showRooms();
 
-		setRefreshActionButtonState(true);
-		RoomsTask newTask = new RoomsTask();
-		newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
-
-		this.handler.postDelayed(checkRunnable, 60000L);
+		this.handler.postDelayed(checkRunnable, 500L);
 	}
 
 	private final Runnable checkRunnable = new Runnable() {
@@ -138,6 +134,7 @@ public class RoomsActivity extends Activity {
 	public void goProfile(View view) {
 		
 		Intent intent = new Intent(this, ProfileActivity.class);
+		intent.putExtra("username", account.name);
 		startActivity(intent);
 	}
 
@@ -207,6 +204,7 @@ public class RoomsActivity extends Activity {
 
 		checkAuthenticateUser();
 		setRefreshActionButtonState(false);
+		Toast.makeText(context, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
 	}
 
 	private void onUserLogoutResult(Integer resultCode) {

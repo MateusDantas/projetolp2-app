@@ -997,48 +997,49 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f060023;
         public static final int action_bar_title=0x7f060022;
         public static final int action_context_bar=0x7f06001d;
-        public static final int action_forgot_password=0x7f060064;
+        public static final int action_forgot_password=0x7f060069;
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060024;
-        public static final int action_settings=0x7f060065;
+        public static final int action_settings=0x7f06006a;
         public static final int activity_chooser_view_content=0x7f060025;
         public static final int admin_name=0x7f06004e;
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
-        public static final int button_profile=0x7f060051;
+        public static final int button_profile=0x7f060054;
         public static final int button_ranking=0x7f06004b;
         public static final int checkbox=0x7f06002d;
         public static final int collapseActionView=0x7f06000d;
         public static final int container=0x7f060044;
-        public static final int create_room_error_message=0x7f060059;
-        public static final int create_room_lim_extra=0x7f060057;
-        public static final int create_room_name=0x7f060053;
-        public static final int create_room_password=0x7f060056;
-        public static final int create_room_price_extra=0x7f060054;
-        public static final int create_room_price_room=0x7f060055;
-        public static final int create_room_submit=0x7f060058;
+        public static final int create_room_error_message=0x7f06005c;
+        public static final int create_room_lim_extra=0x7f06005a;
+        public static final int create_room_name=0x7f060056;
+        public static final int create_room_password=0x7f060059;
+        public static final int create_room_price_extra=0x7f060057;
+        public static final int create_room_price_room=0x7f060058;
+        public static final int create_room_submit=0x7f06005b;
         public static final int default_activity_button=0x7f060028;
         public static final int dialog=0x7f06000e;
         public static final int disableHome=0x7f060008;
         public static final int dropdown=0x7f06000f;
         public static final int edit_query=0x7f060030;
-        public static final int email=0x7f06005d;
+        public static final int email=0x7f060060;
         public static final int end=0x7f060013;
         public static final int expand_activities_button=0x7f060026;
         public static final int expanded_menu=0x7f06002c;
-        public static final int firstName=0x7f06005c;
+        public static final int firstName=0x7f06005f;
         public static final int home=0x7f060014;
         public static final int homeAsUp=0x7f060005;
         public static final int icon=0x7f06002a;
         public static final int ifRoom=0x7f06000a;
         public static final int image=0x7f060027;
-        public static final int imageView1=0x7f060052;
-        public static final int linearLayout1=0x7f06005a;
+        public static final int imageView1=0x7f060055;
+        public static final int linearLayout1=0x7f06005d;
         public static final int listMode=0x7f060001;
         public static final int listView_ranking=0x7f060049;
-        public static final int listView_rooms=0x7f06004f;
+        public static final int listView_rooms=0x7f060052;
         public static final int listView_rooms_registered=0x7f060045;
+        public static final int listView_users_registered=0x7f06004f;
         public static final int list_item=0x7f060029;
         public static final int login=0x7f060041;
         public static final int login_form=0x7f06003e;
@@ -1054,9 +1055,9 @@ containing a value of this type.
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
         public static final int radio=0x7f06002f;
-        public static final int register_button=0x7f06005b;
-        public static final int room_admin_name=0x7f060060;
-        public static final int room_name=0x7f06005f;
+        public static final int register_button=0x7f06005e;
+        public static final int room_admin_name=0x7f060062;
+        public static final int room_name=0x7f060050;
         public static final int room_price=0x7f06004d;
         public static final int search_badge=0x7f060032;
         public static final int search_bar=0x7f060031;
@@ -1068,7 +1069,7 @@ containing a value of this type.
         public static final int search_plate=0x7f060036;
         public static final int search_src_text=0x7f060037;
         public static final int search_voice_btn=0x7f06003b;
-        public static final int secondName=0x7f06005e;
+        public static final int secondName=0x7f060061;
         public static final int shortcut=0x7f06002e;
         public static final int showCustom=0x7f060007;
         public static final int showHome=0x7f060004;
@@ -1079,17 +1080,21 @@ containing a value of this type.
         public static final int tabMode=0x7f060002;
         public static final int textView_name=0x7f060047;
         public static final int textView_roomName=0x7f06004a;
-        public static final int textView_rooms=0x7f060050;
+        public static final int textView_rooms=0x7f060053;
         public static final int textView_rooms_registered=0x7f060046;
         public static final int textView_ubets=0x7f060048;
         public static final int title=0x7f06002b;
         public static final int top_action_bar=0x7f060020;
-        public static final int ubet_create_room=0x7f060062;
-        public static final int ubet_menu_logout=0x7f060063;
-        public static final int ubet_menu_refresh=0x7f060061;
+        public static final int ubet_create_room=0x7f060066;
+        public static final int ubet_menu_logout=0x7f060067;
+        public static final int ubet_menu_refresh=0x7f060065;
+        public static final int ubet_menu_room_inside_refresh=0x7f060068;
         public static final int up=0x7f060021;
         public static final int useLogo=0x7f060003;
+        public static final int user_name=0x7f060063;
+        public static final int user_score=0x7f060064;
         public static final int username=0x7f06003f;
+        public static final int users_registered=0x7f060051;
         public static final int withText=0x7f06000c;
     }
     public static final class integer {
@@ -1147,27 +1152,31 @@ containing a value of this type.
         public static final int activity_ranking=0x7f03001a;
         public static final int activity_register=0x7f03001b;
         public static final int activity_room=0x7f03001c;
-        public static final int activity_rooms=0x7f03001d;
-        public static final int activity_start=0x7f03001e;
-        public static final int activity_test=0x7f03001f;
-        public static final int android_refresh_progress=0x7f030020;
-        public static final int fragment_create_room=0x7f030021;
-        public static final int fragment_register=0x7f030022;
-        public static final int fragment_start=0x7f030023;
-        public static final int fragment_test=0x7f030024;
-        public static final int rooms_list=0x7f030025;
-        public static final int support_simple_spinner_dropdown_item=0x7f030026;
+        public static final int activity_room_inside=0x7f03001d;
+        public static final int activity_rooms=0x7f03001e;
+        public static final int activity_start=0x7f03001f;
+        public static final int activity_test=0x7f030020;
+        public static final int android_refresh_progress=0x7f030021;
+        public static final int fragment_create_room=0x7f030022;
+        public static final int fragment_register=0x7f030023;
+        public static final int fragment_start=0x7f030024;
+        public static final int fragment_test=0x7f030025;
+        public static final int rooms_list=0x7f030026;
+        public static final int support_simple_spinner_dropdown_item=0x7f030027;
+        public static final int users_list=0x7f030028;
     }
     public static final class menu {
         public static final int activity_profile_actions=0x7f0d0000;
         public static final int activity_room_actions=0x7f0d0001;
-        public static final int authenticator=0x7f0d0002;
-        public static final int create_room=0x7f0d0003;
-        public static final int login=0x7f0d0004;
-        public static final int no_menu=0x7f0d0005;
-        public static final int register=0x7f0d0006;
-        public static final int start=0x7f0d0007;
-        public static final int test=0x7f0d0008;
+        public static final int activity_room_inside_actions=0x7f0d0002;
+        public static final int authenticator=0x7f0d0003;
+        public static final int create_room=0x7f0d0004;
+        public static final int login=0x7f0d0005;
+        public static final int no_menu=0x7f0d0006;
+        public static final int register=0x7f0d0007;
+        public static final int room_inside=0x7f0d0008;
+        public static final int start=0x7f0d0009;
+        public static final int test=0x7f0d000a;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1210,23 +1219,23 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
-        public static final int action_forgot_password=0x7f0b0058;
+        public static final int action_forgot_password=0x7f0b0059;
         public static final int action_settings=0x7f0b000e;
-        public static final int action_sign_in_register=0x7f0b0056;
-        public static final int action_sign_in_short=0x7f0b0057;
+        public static final int action_sign_in_register=0x7f0b0057;
+        public static final int action_sign_in_short=0x7f0b0058;
         public static final int app_name=0x7f0b000d;
         public static final int button_login=0x7f0b0011;
         public static final int button_profile=0x7f0b0028;
         public static final int button_ranking=0x7f0b0029;
         public static final int button_register=0x7f0b0012;
         public static final int create_room_lim_extra=0x7f0b0031;
-        /**   Create Room Activity Strings 
+        /**  Create Room Activity Strings 
          */
         public static final int create_room_name=0x7f0b002d;
         public static final int create_room_password=0x7f0b002e;
         public static final int create_room_price_extra=0x7f0b0030;
         public static final int create_room_price_room=0x7f0b002f;
-        /**      Error's handling messages! 
+        /**  Error's handling messages! 
          */
         public static final int erro0=0x7f0b0037;
         public static final int erro1=0x7f0b0038;
@@ -1256,14 +1265,14 @@ containing a value of this type.
         public static final int erro7=0x7f0b003e;
         public static final int erro8=0x7f0b003f;
         public static final int erro9=0x7f0b0040;
-        public static final int error_field_required=0x7f0b005d;
-        public static final int error_incorrect_password=0x7f0b005c;
-        public static final int error_invalid_email=0x7f0b005a;
-        public static final int error_invalid_password=0x7f0b005b;
+        public static final int error_field_required=0x7f0b005e;
+        public static final int error_incorrect_password=0x7f0b005d;
+        public static final int error_invalid_email=0x7f0b005b;
+        public static final int error_invalid_password=0x7f0b005c;
         public static final int hello_world=0x7f0b0019;
         public static final int loading_message=0x7f0b001a;
         public static final int login_fail=0x7f0b0020;
-        public static final int login_progress_signing_in=0x7f0b0059;
+        public static final int login_progress_signing_in=0x7f0b005a;
         public static final int menu_item_add_group=0x7f0b002b;
         public static final int menu_item_logout=0x7f0b002c;
         public static final int menu_item_refresh=0x7f0b002a;
@@ -1287,14 +1296,15 @@ containing a value of this type.
         public static final int prompt_secondname=0x7f0b0017;
         public static final int prompt_username=0x7f0b0014;
         public static final int textView_rooms=0x7f0b0027;
-        public static final int title_activity_authenticator=0x7f0b0055;
+        public static final int title_activity_authenticator=0x7f0b0056;
         public static final int title_activity_create_room=0x7f0b0054;
         public static final int title_activity_login=0x7f0b000f;
         public static final int title_activity_profile=0x7f0b0025;
         public static final int title_activity_ranking=0x7f0b0024;
         public static final int title_activity_register=0x7f0b0010;
         public static final int title_activity_room=0x7f0b0023;
-        /**      Rooms Activity Strings 
+        public static final int title_activity_room_inside=0x7f0b0055;
+        /**  Rooms Activity Strings 
          */
         public static final int title_activity_rooms=0x7f0b0026;
         public static final int title_activity_test=0x7f0b0022;

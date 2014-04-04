@@ -127,8 +127,9 @@ public class RoomsApi {
 
 		for (Element element : rooms) {
 			String username = element.attr("username");
-
-			listOfUsers.add(new UsersContent(username));
+			int score = Integer.valueOf(element.attr("score"));
+			int coins = Integer.valueOf(element.attr("coins"));
+			listOfUsers.add(new UsersContent(username, coins, score));
 		}
 
 		return listOfUsers;
