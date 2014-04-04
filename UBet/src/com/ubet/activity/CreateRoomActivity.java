@@ -178,7 +178,8 @@ public class CreateRoomActivity extends ActionBarActivity {
 		TextView errorMessage = (TextView) findViewById(R.id.create_room_error_message);
 		if (resultCode == 7) {
 
-			errorMessage.setText("OK!");
+			if (errorMessage != null)
+				errorMessage.setText("OK!");
 			final Intent intent = new Intent(this, RoomsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 					| Intent.FLAG_ACTIVITY_CLEAR_TASK
