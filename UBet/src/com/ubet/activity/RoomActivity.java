@@ -41,6 +41,11 @@ public class RoomActivity extends Activity {
         setContentView(R.layout.activity_room);
         
         Intent intent = getIntent();
+        
+        if (intent == null) {
+        	finish();
+        }
+        
         TextView roomNameView = (TextView) findViewById(R.id.textView_roomName);
         TextView adminNameView = (TextView) findViewById(R.id.admin_name);
         TextView priceRoomView = (TextView) findViewById(R.id.room_price);
@@ -50,6 +55,10 @@ public class RoomActivity extends Activity {
         
         context = getApplicationContext();
         account = UbetAccount.getAccount(context);
+        
+        if (account == null) {
+        	finish();
+        }
         
         roomId = intent.getExtras().getInt("room_id");
         roomName = intent.getExtras().getString("name");
@@ -78,6 +87,16 @@ public class RoomActivity extends Activity {
         roomId = intent.getExtras().getInt("room_id");
     }
     
+    public void registerUser(View view) {
+    	
+    	final Intent intent = new Intent(this, EnterToRoom.class);
+    	intent.putExtra("roomid", roomId);
+    	intent.putExtra("admin_name", adminName);
+    	intent.putExtra("room_name", roomName);
+    	
+    	startActivity(intent);
+    	finish();
+    }
      
     
     private void redirectToRoom() {

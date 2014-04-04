@@ -63,6 +63,12 @@ public class RoomsActivity extends Activity {
 		accountManager = AccountManager.get(context);
 		rooms = new ArrayList<RoomsContent>();
 
+		if (account == null) {
+			finish();
+		}
+		
+		checkAuthenticateUser();
+		
 		list = (ListView) findViewById(R.id.listView_rooms);
 		
 		showRooms();

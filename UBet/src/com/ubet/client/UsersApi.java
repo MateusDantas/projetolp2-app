@@ -18,6 +18,9 @@ public class UsersApi {
 
 		TreeMap<String, String> params = new TreeMap<String, String>();
 
+		if (account == null)
+			return -1;
+		
 		params.put("username", account.name);
 
 		InputStream instream = UbetApi.ubetApiCall(UbetUrls.LOGOFF_USER_URL,
@@ -39,6 +42,9 @@ public class UsersApi {
 
 		TreeMap<String, String> params = new TreeMap<String, String>();
 
+		if (account == null)
+			return -1;
+		
 		params.put("username", account.name);
 		params.put("requested_user", username);
 		

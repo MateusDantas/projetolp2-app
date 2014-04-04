@@ -27,6 +27,9 @@ public class RoomsApi {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		Account account = UbetAccount.getAccount(context);
 
+		if (account == null)
+			return null;
+		
 		params.put("username", account.name);
 		params.put("requested_user", username);
 
@@ -84,6 +87,9 @@ public class RoomsApi {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		Account account = UbetAccount.getAccount(context);
 
+		if (account == null)
+			return false;
+		
 		params.put("username", account.name);
 		params.put("roomid", String.valueOf(roomId));
 		
@@ -107,6 +113,9 @@ public class RoomsApi {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		Account account = UbetAccount.getAccount(context);
 
+		if (account == null)
+			return null;
+		
 		params.put("username", account.name);
 		params.put("roomid", String.valueOf(roomId));
 
@@ -141,6 +150,9 @@ public class RoomsApi {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		Account account = UbetAccount.getAccount(context);
 
+		if (account == null)
+			return -1;
+		
 		params.put("username", account.name);
 		params.put("requested_user", username);
 
@@ -165,6 +177,9 @@ public class RoomsApi {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		Account account = UbetAccount.getAccount(context);
 
+		if (account == null)
+			return -1;
+		
 		params.put("name", name);
 		params.put("username", username);
 		params.put("price_room", String.valueOf(priceRoom));
@@ -192,6 +207,9 @@ public class RoomsApi {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		Account account = UbetAccount.getAccount(context);
 
+		if (account == null)
+			return -1;
+		
 		params.put("username", username);
 		params.put("password", password);
 		params.put("roomid", String.valueOf(roomId));

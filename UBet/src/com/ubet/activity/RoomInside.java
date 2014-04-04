@@ -67,32 +67,40 @@ public class RoomInside extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_room_inside);
 
-		
-		
 		context = getApplicationContext();
 		accountManager = AccountManager.get(context);
 		account = UbetAccount.getAccount(context);
 
-		Intent intent = getIntent();
-		
-		roomId = intent.getExtras().getInt("roomid");
-		adminName = intent.getExtras().getString("admin_name");
-		roomName = intent.getExtras().getString("room_name");
-		
-		if (roomId == 0 || adminName == null || roomName == null) {
-			finish();
-		}
+		checkAuthenticateUser();
+		getIntentResults();
 		
 		TextView roomNameView = (TextView) findViewById(R.id.room_name);
 		TextView adminNameView = (TextView) findViewById(R.id.admin_name);
-		
+
 		roomNameView.setText(roomName);
 		adminNameView.setText("Admin: " + adminName);
-		
+
 		list = (ListView) findViewById(R.id.listView_users_registered);
 		showItens();
-		
+
 		this.handler.postDelayed(checkRunnable, 500L);
+	}
+
+	private void getIntentResults() {
+
+		Intent intent = getIntent();
+
+		if (intent == null) {
+			finish();
+		}
+
+		roomId = intent.getExtras().getInt("roomid");
+		adminName = intent.getExtras().getString("admin_name");
+		roomName = intent.getExtras().getString("room_name");
+
+		if (roomId == 0 || adminName == null || roomName == null) {
+			finish();
+		}
 	}
 
 	private final Runnable checkRunnable = new Runnable() {
@@ -121,7 +129,7 @@ public class RoomInside extends Activity {
 			finish();
 		}
 	}
-	
+
 	private void showItens() {
 
 		arrayAdapter = new UsersContentAdapter(context, R.layout.users_list,
@@ -165,7 +173,7 @@ public class RoomInside extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	private void updateUsers(List<UsersContent> listOfUsers) {
 
 		arrayAdapter.clear();
@@ -200,9 +208,10 @@ public class RoomInside extends Activity {
 
 		checkAuthenticateUser();
 		setRefreshActionButtonState(false);
-		Toast.makeText(context, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(context, "Something went wrong! Try again!",
+				Toast.LENGTH_SHORT).show();
 	}
-	
+
 	public class UsersContentAdapter extends ArrayAdapter<UsersContent> {
 
 		private Context context;
@@ -232,7 +241,8 @@ public class RoomInside extends Activity {
 					itemViewUserName.setText(item.getName());
 				}
 				if (itemViewUserScore != null) {
-					itemViewUserScore.setText("Score: " + String.valueOf(item.getScore()));
+					itemViewUserScore.setText("Score: "
+							+ String.valueOf(item.getScore()));
 				}
 			}
 			return view;
@@ -246,7 +256,8 @@ public class RoomInside extends Activity {
 
 			try {
 
-				List<UsersContent> listOfUsers = RoomsApi.getUsersInRoom(roomId, context);
+				List<UsersContent> listOfUsers = RoomsApi.getUsersInRoom(
+						roomId, context);
 				return listOfUsers;
 			} catch (Exception e) {
 

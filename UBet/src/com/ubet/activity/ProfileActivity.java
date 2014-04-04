@@ -71,6 +71,11 @@ public class ProfileActivity extends Activity {
 		accountManager = AccountManager.get(context);
 		rooms = new ArrayList<RoomsContent>();
 
+		if (account == null) {
+			finish();
+		}
+		checkAuthenticateUser();
+		
 		list = (ListView) findViewById(R.id.listView_rooms_registered);
 
 		usernameView = (TextView) findViewById(R.id.textView_name);

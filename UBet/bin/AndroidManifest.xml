@@ -100,6 +100,11 @@
             android:name="com.ubet.activity.RoomInside"
             android:label="@string/title_activity_room_inside" >
         </activity>
+        <activity
+            android:name="com.ubet.activity.EnterToRoom"
+            android:label="@string/title_activity_enter_to_room"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
     </application>
 
 </manifest>
