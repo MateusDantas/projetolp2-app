@@ -23,33 +23,36 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class RoomsActivity extends Activity {
 
-	List<String> rooms = new ArrayList<String>();
+	List<RoomsContent> rooms = new ArrayList<RoomsContent>();
 	ListView list;
 	RoomsActivity thisActivity = this;
 	private Menu optionsMenu;
 
-	ArrayAdapter<String> arrayAdapter = null;
+	RoomsContentAdapter arrayAdapter = null;
 
 	private Context context;
 	private Account account;
 	private AccountManager accountManager;
 
 	Handler handler = new Handler();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,7 +61,7 @@ public class RoomsActivity extends Activity {
 		context = getApplicationContext();
 		account = UbetAccount.getAccount(context);
 		accountManager = AccountManager.get(context);
-		rooms = new ArrayList<String>();
+		rooms = new ArrayList<RoomsContent>();
 
 		list = (ListView) findViewById(R.id.listView_rooms);
 
@@ -88,7 +91,7 @@ public class RoomsActivity extends Activity {
 		String nowToken = accountManager.peekAuthToken(account,
 				Constants.AUTH_TOKEN_TYPE);
 		if (nowToken == null) {
-			Log.d("u.","1");
+			Log.d("u.", "1");
 			this.handler.removeCallbacks(checkRunnable);
 			accountManager.removeAccount(account, null, null);
 			final Intent intent = new Intent(this, StartActivity.class);
@@ -102,7 +105,7 @@ public class RoomsActivity extends Activity {
 
 	private void showRooms() {
 
-		arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+		arrayAdapter = new RoomsContentAdapter(getApplicationContext(),
 				R.layout.rooms_list, rooms);
 
 		list.setAdapter(arrayAdapter);
@@ -114,7 +117,9 @@ public class RoomsActivity extends Activity {
 					long arg3) {
 
 				Intent intent = new Intent(thisActivity, RoomActivity.class);
-				intent.putExtra("name", rooms.get(arg2));
+				intent.putExtra("name", rooms.get(arg2).getRoomName());
+				intent.putExtra("admin_name", rooms.get(arg2).getAdminName());
+				intent.putExtra("room_id", rooms.get(arg2).getRoomId());
 				startActivity(intent);
 			}
 		});
@@ -149,7 +154,7 @@ public class RoomsActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.ubet_menu_refresh:
-			
+
 			setRefreshActionButtonState(true);
 			RoomsTask newTask = new RoomsTask();
 			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
@@ -170,14 +175,7 @@ public class RoomsActivity extends Activity {
 	private void updateRooms(List<RoomsContent> listOfRooms) {
 
 		arrayAdapter.clear();
-
-		List<String> newRooms = new ArrayList<String>();
-		for (RoomsContent room : listOfRooms) {
-			Log.d("sala", room.getRoomName());
-			newRooms.add(room.getRoomName());
-		}
-
-		arrayAdapter.addAll(newRooms);
+		arrayAdapter.addAll(listOfRooms);
 		arrayAdapter.notifyDataSetChanged();
 	}
 
@@ -228,6 +226,42 @@ public class RoomsActivity extends Activity {
 		}
 	}
 
+	public class RoomsContentAdapter extends ArrayAdapter<RoomsContent> {
+
+		private Context context;
+
+		public RoomsContentAdapter(Context context, int textViewResourceId,
+				List<RoomsContent> items) {
+			super(context, textViewResourceId, items);
+			this.context = context;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View view = convertView;
+			if (view == null) {
+				LayoutInflater inflater = (LayoutInflater) context
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				view = inflater.inflate(R.layout.rooms_list, null);
+			}
+
+			RoomsContent item = getItem(position);
+			if (item != null) {
+				TextView itemViewRoomName = (TextView) view
+						.findViewById(R.id.room_name);
+				TextView itemViewRoomAdminName = (TextView) view
+						.findViewById(R.id.room_admin_name);
+				if (itemViewRoomName != null) {
+					itemViewRoomName.setText(item.getRoomName());
+				}
+				if (itemViewRoomAdminName != null) {
+					itemViewRoomAdminName.setText(item.getAdminName());
+				}
+			}
+			return view;
+		}
+	}
+
 	public class LogoutTask extends AsyncTask<Void, Void, Integer> {
 
 		@Override
@@ -256,15 +290,14 @@ public class RoomsActivity extends Activity {
 		protected List<RoomsContent> doInBackground(Void... params) {
 
 			try {
-				Log.d("doing", "yeah");
-				if (account == null)
-					Log.d("we may have a problem, sir", "what?");
-				List<RoomsContent> listOfRooms = RoomsApi.getRoomsByUser(
+
+				List<RoomsContent> listOfRooms = RoomsApi.getAllRooms(
 						account.name, context);
 				return listOfRooms;
 			} catch (Exception e) {
 
 				e.printStackTrace();
+				Log.d("erro", e.getMessage().toString());
 				return null;
 			}
 		}
@@ -273,7 +306,6 @@ public class RoomsActivity extends Activity {
 		protected void onPostExecute(final List<RoomsContent> listOfRooms) {
 
 			if (listOfRooms == null) {
-				Log.d("something went wrong", "oh yeah");
 				onProcessFailed();
 				return;
 			}

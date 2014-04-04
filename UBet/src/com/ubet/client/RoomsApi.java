@@ -56,6 +56,12 @@ public class RoomsApi {
 		return listOfRooms;
 	}
 
+	public static List<RoomsContent> getAllRooms(String username,
+			Context context) throws Exception {
+
+		return getRooms(UbetUrls.GET_ALL_ROOMS, username, context);
+	}
+
 	public static List<RoomsContent> getRoomsByUser(String username,
 			Context context) throws Exception {
 

@@ -240,11 +240,11 @@ int id action_bar_root 0x7f06001a
 int id action_bar_subtitle 0x7f060023
 int id action_bar_title 0x7f060022
 int id action_context_bar 0x7f06001d
-int id action_forgot_password 0x7f060061
+int id action_forgot_password 0x7f060063
 int id action_menu_divider 0x7f060016
 int id action_menu_presenter 0x7f060017
 int id action_mode_close_button 0x7f060024
-int id action_settings 0x7f060062
+int id action_settings 0x7f060064
 int id activity_chooser_view_content 0x7f060025
 int id always 0x7f06000b
 int id beginning 0x7f060011
@@ -296,6 +296,8 @@ int id progress_circular 0x7f060018
 int id progress_horizontal 0x7f060019
 int id radio 0x7f06002f
 int id register_button 0x7f06005a
+int id room_admin_name 0x7f06005f
+int id room_name 0x7f06005e
 int id search_badge 0x7f060032
 int id search_bar 0x7f060031
 int id search_button 0x7f060033
@@ -324,9 +326,9 @@ int id textView_rooms_registered 0x7f060046
 int id textView_ubets 0x7f060048
 int id title 0x7f06002b
 int id top_action_bar 0x7f060020
-int id ubet_create_room 0x7f06005e
-int id ubet_menu_logout 0x7f060060
-int id ubet_menu_refresh 0x7f06005f
+int id ubet_create_room 0x7f060060
+int id ubet_menu_logout 0x7f060062
+int id ubet_menu_refresh 0x7f060061
 int id up 0x7f060021
 int id useLogo 0x7f060003
 int id username 0x7f06003f

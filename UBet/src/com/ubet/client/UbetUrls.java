@@ -15,6 +15,7 @@ public class UbetUrls {
 	/**
 	 * Room's URLs
 	 */
+	public static final String GET_ALL_ROOMS = "rooms/getallrooms";
 	public static final String CREATE_ROOM_URL = "rooms/createroom";
 	public static final String GET_ROOMS_CREATED_BY_USER_URL = "rooms/getroomscreatedbyuser";
 	public static final String ENTER_TO_ROOM_URL = "rooms/entertoroom";
