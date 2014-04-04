@@ -1,6 +1,6 @@
 package com.ubet.authenticator;
 
-import com.example.ubet.R;
+import com.ubet.R;
 import com.ubet.Constants;
 import com.ubet.client.UbetApi;
 

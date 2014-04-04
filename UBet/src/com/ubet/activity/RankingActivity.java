@@ -2,7 +2,7 @@ package com.ubet.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.ubet.R;
+import com.ubet.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

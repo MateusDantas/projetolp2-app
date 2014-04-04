@@ -15,11 +15,11 @@ public class UbetUrls {
 	/**
 	 * Room's URLs
 	 */
-	public static final String CREATE_ROOM_URL = "ubet/rooms/createroom";
-	public static final String GET_ROOMS_CREATED_BY_USER_URL = "ubet/rooms/getroomscreatedbyuser";
-	public static final String ENTER_TO_ROOM_URL = "ubet/rooms/entertoroom";
-	public static final String GET_USERS_IN_ROOM = "ubet/rooms/usersinroom";
-	public static final String GET_ROOMS_BY_USER = "ubet/rooms/roomsbyuser";
-	public static final String GET_POINTS_USER_IN_ROOM_URL = "ubet/rooms/pointsuser";
+	public static final String CREATE_ROOM_URL = "rooms/createroom";
+	public static final String GET_ROOMS_CREATED_BY_USER_URL = "rooms/getroomscreatedbyuser";
+	public static final String ENTER_TO_ROOM_URL = "rooms/entertoroom";
+	public static final String GET_USERS_IN_ROOM = "rooms/usersinroom";
+	public static final String GET_ROOMS_BY_USER = "rooms/roomsbyuser";
+	public static final String GET_POINTS_USER_IN_ROOM_URL = "rooms/pointsuser";
 	public static final String LAST_UPDATE_ROOM = "rooms/lastupdate";
 }

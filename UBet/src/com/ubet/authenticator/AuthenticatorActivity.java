@@ -1,7 +1,7 @@
 package com.ubet.authenticator;
 
 import com.ubet.Constants;
-import com.example.ubet.R;
+import com.ubet.R;
 import com.ubet.activity.RoomsActivity;
 import com.ubet.activity.TestActivity;
 import com.ubet.client.UbetApi;
@@ -56,7 +56,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
 		if (username != null && !TextUtils.isEmpty(username)) {
 			usernameEdit.setText(username);
-			//passwordEdit.requestFocus();
+			// passwordEdit.requestFocus();
 		}
 
 	}
@@ -99,8 +99,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		// changed to rooms activity
 		Intent newIntent = new Intent(this, RoomsActivity.class);
 		newIntent.putExtra(AccountManager.KEY_ACCOUNT_NAME, username);
-	
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+				| Intent.FLAG_ACTIVITY_CLEAR_TASK
+				| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(newIntent);
 		finish();
 	}
@@ -142,7 +144,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
 		Context context = getApplicationContext();
 		if (UbetAccount.isUserLoggedIn(context)) {
-			//changed to rooms activity
+			// changed to rooms activity
 			final Intent intent = new Intent(context, RoomsActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);

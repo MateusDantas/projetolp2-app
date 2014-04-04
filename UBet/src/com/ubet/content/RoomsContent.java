@@ -2,9 +2,9 @@ package com.ubet.content;
 
 public class RoomsContent {
 
-	private static String adminName;
-	private static String roomName;
-	private static int roomId;
+	private String adminName;
+	private String roomName;
+	private int roomId;
 	public boolean isPublicRoom;
 	
 	public RoomsContent(int roomId, String roomName, String adminName) {
@@ -22,7 +22,7 @@ public class RoomsContent {
 	}
 
 	private void setAdminName(String adminName) {
-		RoomsContent.adminName = adminName;
+		this.adminName = adminName;
 	}
 
 	public String getRoomName() {
@@ -30,7 +30,7 @@ public class RoomsContent {
 	}
 
 	private void setRoomName(String roomName) {
-		RoomsContent.roomName = roomName;
+		this.roomName = roomName;
 	}
 
 	public int getRoomId() {
@@ -38,7 +38,7 @@ public class RoomsContent {
 	}
 
 	private void setRoomId(int roomId) {
-		RoomsContent.roomId = roomId;
+		this.roomId = roomId;
 	}
 	
 	

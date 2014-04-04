@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
- 
+
     <ListView
         android:id="@+id/listView_rooms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_ranking"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button_ranking"
         android:layout_marginTop="30dp" >
     </ListView>
 
@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="@string/button_profile" 
-        android:onClick="goProfile"/>
+        android:onClick="goProfile"
+        android:text="@string/button_profile" />
 
     <Button
         android:id="@+id/button_ranking"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/button_ranking"
-        android:onClick="goRanking"/>
- 
+        android:onClick="goRanking"
+        android:text="@string/button_ranking" />
+
 </RelativeLayout>

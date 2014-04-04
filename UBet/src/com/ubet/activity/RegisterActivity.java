@@ -5,7 +5,7 @@ import java.io.InputStream;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import com.example.ubet.R;
+import com.ubet.R;
 import com.ubet.authenticator.AuthenticatorActivity;
 import com.ubet.client.UbetApi;
 import com.ubet.util.UbetAccount;

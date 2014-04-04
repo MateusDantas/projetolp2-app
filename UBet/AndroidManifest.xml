@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ubet"
+    package="com.ubet"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-    
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SYNC_STATS" />
@@ -24,7 +23,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
         <service android:name="com.ubet.authenticator.AuthenticatationService" >
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" >
@@ -46,7 +44,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       
         <activity
             android:name="com.ubet.authenticator.AuthenticatorActivity"
             android:label="@string/title_activity_login"
@@ -55,7 +52,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ubet.activity.StartActivity" />
         </activity>
-        
         <activity
             android:name="com.ubet.activity.RegisterActivity"
             android:label="@string/title_activity_register"
@@ -64,45 +60,42 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ubet.activity.StartActivity" />
         </activity>
-        
         <activity
             android:name="com.ubet.activity.TestActivity"
             android:label="@string/title_activity_test" >
         </activity>
-        
         <activity
             android:name="com.ubet.activity.RoomsActivity"
             android:label="@string/title_activity_rooms" >
         </activity>
-        
         <activity
             android:name="com.ubet.activity.RoomActivity"
-            android:label="@string/title_activity_room" 
+            android:label="@string/title_activity_room"
             android:parentActivityName="com.ubet.activity.RoomsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ubet.activity.RoomsActivity" />
         </activity>
-        
         <activity
             android:name="com.ubet.activity.RankingActivity"
-            android:label="@string/title_activity_ranking" 
+            android:label="@string/title_activity_ranking"
             android:parentActivityName="com.ubet.activity.RoomsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ubet.activity.RoomsActivity" />
         </activity>
-        
         <activity
             android:name="com.ubet.activity.ProfileActivity"
-            android:label="@string/title_activity_profile" 
+            android:label="@string/title_activity_profile"
             android:parentActivityName="com.ubet.activity.RoomsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ubet.activity.RoomsActivity" />
-        </activity>        
-        
-        
+        </activity>
+        <activity
+            android:name="com.ubet.activity.CreateRoomActivity"
+            android:label="@string/title_activity_create_room" >
+        </activity>
     </application>
 
 </manifest>

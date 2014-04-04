@@ -2,10 +2,10 @@ package com.ubet.activity;
 
 import java.io.IOException;
 
-import com.example.ubet.R;
-import com.example.ubet.R.id;
-import com.example.ubet.R.layout;
-import com.example.ubet.R.menu;
+import com.ubet.R;
+import com.ubet.R.id;
+import com.ubet.R.layout;
+import com.ubet.R.menu;
 import com.ubet.Constants;
 import com.ubet.util.UbetAccount;
 

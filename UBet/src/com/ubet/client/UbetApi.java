@@ -19,6 +19,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.ubet.Constants;
 import com.ubet.util.BCrypt;
 import com.ubet.util.Variables;
 
@@ -141,21 +142,24 @@ public abstract class UbetApi {
 
 		AccountManager manager = AccountManager.get(context);
 
-		if (account == null)
+		if (account == null) {
+			Log.d("account null", "hm");
 			throw new ubetInternalError();
+		}
 
 		String authToken = null;
 
 		try {
 
 			authToken = manager.blockingGetAuthToken(account,
-					Variables.AUTH_TOKEN_TYPE, true);
+					Constants.AUTH_TOKEN_TYPE, true);
 		} catch (Exception e) {
 			return null;
 		}
 		
+		
 		if (authToken == null)
-			return null;
+			throw new AuthenticationException("Unable to authenticate user");
 		
 		params.put("token", authToken);
 
@@ -187,20 +191,17 @@ public abstract class UbetApi {
 			return instream;
 		} else if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
 
-			manager.invalidateAuthToken(Variables.AUTH_TOKEN_TYPE, authToken);
+			manager.invalidateAuthToken(Constants.ACCOUNT_TYPE, authToken);
+						
+			Log.d("Token", authToken);
 
-			try {
+			if (manager.peekAuthToken(account, Constants.AUTH_TOKEN_TYPE) != null)
+				Log.d("vish,", "hmmm");
 
-				authToken = manager.blockingGetAuthToken(account,
-						Variables.AUTH_TOKEN_TYPE, true);
-			} catch (Exception e) {
-				
-				return null;
-			}
-
-			throw new AuthenticationException();
+			throw new AuthenticationException("Unable to authenticate user");
 		} else {
 
+			Log.d("status", String.valueOf(statusCode));
 			throw new ubetInternalError();
 		}
 	}

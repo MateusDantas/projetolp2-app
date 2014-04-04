@@ -1,6 +1,6 @@
 package com.ubet.activity;
 
-import com.example.ubet.R;
+import com.ubet.R;
 import com.ubet.authenticator.AuthenticatorActivity;
 import com.ubet.util.UbetAccount;
 

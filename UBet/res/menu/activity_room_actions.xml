@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    
+    
+    <item android:id="@+id/ubet_create_room"
+         android:icon="@drawable/ic_action_add_group"
+         android:title="@string/menu_item_add_group"
+         android:alphabeticShortcut="c"
+         android:orderInCategory="1"
+         android:showAsAction="always" />
+    
+    <item android:id="@+id/ubet_menu_refresh"
+         android:icon="@drawable/ic_action_refresh"
+         android:title="@string/menu_item_refresh"
+         android:alphabeticShortcut="r"
+         android:orderInCategory="3"
+         android:showAsAction="always" />
+    
+    
+     <item android:id="@+id/ubet_menu_logout"
+         android:icon="@drawable/ic_action_cancel"
+         android:title="@string/menu_item_logout"
+         android:alphabeticShortcut="l"
+         android:orderInCategory="2"
+         android:showAsAction="always" />
+</menu>
