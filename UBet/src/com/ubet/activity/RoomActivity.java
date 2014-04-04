@@ -18,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RoomActivity extends Activity {
-	 
+	
+	private int roomId = 0;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +28,15 @@ public class RoomActivity extends Activity {
         
         Intent intent = getIntent();
         TextView roomName = (TextView) findViewById(R.id.textView_roomName);
+        TextView adminName = (TextView) findViewById(R.id.admin_name);
+        TextView priceRoom = (TextView) findViewById(R.id.room_price);
+        TextView peopleInside = (TextView) findViewById(R.id.number_of_people);
         
         roomName.setText((String) intent.getExtras().get("name"));
+        adminName.setText("Admin: " + (String) intent.getExtras().getString("admin_name"));
+        priceRoom.setText("Room price: " + String.valueOf(intent.getExtras().getInt("price_room")));
+        peopleInside.setText("People in this room: " + String.valueOf(intent.getExtras().getInt("people_inside")));
+        roomId = intent.getExtras().getInt("room_id");
     }
     
      

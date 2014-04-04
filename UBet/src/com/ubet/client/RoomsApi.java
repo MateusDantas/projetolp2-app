@@ -49,8 +49,11 @@ public class RoomsApi {
 			String adminName = element.attr("admin");
 			String roomName = element.attr("name");
 			int roomId = Integer.valueOf(element.attr("roomid"));
+			int priceRoom = Integer.valueOf(element.attr("roomprice"));
+			int peopleInside = Integer.valueOf(element.attr("peopleinside"));
 
-			listOfRooms.add(new RoomsContent(roomId, roomName, adminName));
+			listOfRooms.add(new RoomsContent(roomId, roomName, adminName,
+					priceRoom, peopleInside));
 		}
 
 		return listOfRooms;
@@ -73,6 +76,29 @@ public class RoomsApi {
 
 		return getRooms(UbetUrls.GET_ROOMS_CREATED_BY_USER_URL, username,
 				context);
+	}
+
+	public static boolean isUserInRoom(String username, int roomId,
+			Context context) throws Exception {
+
+		TreeMap<String, String> params = new TreeMap<String, String>();
+		Account account = UbetAccount.getAccount(context);
+
+		params.put("username", account.name);
+		params.put("roomid", String.valueOf(roomId));
+		
+		InputStream instream = UbetApi.ubetApiCall(UbetUrls.IS_USER_IN_ROOM,
+				params, account, context);
+
+		if (instream == null)
+			return false;
+
+		Document doc = Jsoup.parse(instream, "UTF-8", "ubet.herokuapp.com");
+		
+		if (doc == null)
+			return false;
+		
+		return Integer.valueOf(doc.select("#returnCode").html()) == 1;
 	}
 
 	public static List<UsersContent> getUsersInRoom(int roomId, Context context)

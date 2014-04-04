@@ -87,7 +87,6 @@ public class RoomsActivity extends Activity {
 
 	public void checkAuthenticateUser() {
 
-		AccountManager accountManager = AccountManager.get(context);
 		String nowToken = accountManager.peekAuthToken(account,
 				Constants.AUTH_TOKEN_TYPE);
 		if (nowToken == null) {
@@ -120,6 +119,8 @@ public class RoomsActivity extends Activity {
 				intent.putExtra("name", rooms.get(arg2).getRoomName());
 				intent.putExtra("admin_name", rooms.get(arg2).getAdminName());
 				intent.putExtra("room_id", rooms.get(arg2).getRoomId());
+				intent.putExtra("price_room", rooms.get(arg2).getPriceRoom());
+				intent.putExtra("people_inside", rooms.get(arg2).getPeopleInside());
 				startActivity(intent);
 			}
 		});
@@ -135,8 +136,8 @@ public class RoomsActivity extends Activity {
 
 	// When Profile button clicked
 	public void goProfile(View view) {
+		
 		Intent intent = new Intent(this, ProfileActivity.class);
-
 		startActivity(intent);
 	}
 
@@ -205,7 +206,7 @@ public class RoomsActivity extends Activity {
 		// TODO Auto-generated method stub
 
 		checkAuthenticateUser();
-
+		setRefreshActionButtonState(false);
 	}
 
 	private void onUserLogoutResult(Integer resultCode) {

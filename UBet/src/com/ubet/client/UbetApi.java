@@ -173,7 +173,7 @@ public abstract class UbetApi {
 		}
 
 		String urlCall = builder.build().toString();
-
+		Log.d("urlCall", urlCall);
 		HttpGet get = new HttpGet(urlCall);
 
 		DefaultHttpClient client = (DefaultHttpClient) HttpClientFactory
