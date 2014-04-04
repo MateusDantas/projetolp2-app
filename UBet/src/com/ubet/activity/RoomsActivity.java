@@ -2,6 +2,7 @@ package com.ubet.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import org.apache.http.auth.AuthenticationException;
 
@@ -48,7 +49,7 @@ public class RoomsActivity extends Activity {
 	private AccountManager accountManager;
 
 	Handler handler = new Handler();
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,7 +66,7 @@ public class RoomsActivity extends Activity {
 
 		setRefreshActionButtonState(true);
 		RoomsTask newTask = new RoomsTask();
-		newTask.execute();
+		newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 
 		this.handler.postDelayed(checkRunnable, 60000L);
 	}
@@ -74,6 +75,9 @@ public class RoomsActivity extends Activity {
 		public void run() {
 
 			checkAuthenticateUser();
+			setRefreshActionButtonState(true);
+			RoomsTask newTask = new RoomsTask();
+			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			handler.postDelayed(this, 60000L);
 		}
 	};
@@ -148,7 +152,7 @@ public class RoomsActivity extends Activity {
 			
 			setRefreshActionButtonState(true);
 			RoomsTask newTask = new RoomsTask();
-			newTask.execute();
+			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			return true;
 		case R.id.ubet_create_room:
 			final Intent intent = new Intent(this, CreateRoomActivity.class);
@@ -156,7 +160,7 @@ public class RoomsActivity extends Activity {
 			return true;
 		case R.id.ubet_menu_logout:
 			LogoutTask logoutTask = new LogoutTask();
-			logoutTask.execute();
+			logoutTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			return true;
 		}
 
