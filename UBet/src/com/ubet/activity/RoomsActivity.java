@@ -2,6 +2,7 @@ package com.ubet.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 
 import org.apache.http.auth.AuthenticationException;
@@ -21,7 +22,14 @@ import android.os.Handler;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,6 +41,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,6 +60,12 @@ public class RoomsActivity extends Activity {
 	private Account account;
 	private AccountManager accountManager;
 
+	private DrawerLayout mDrawerLayout;
+	private ActionBarDrawerToggle mDrawerToggle;
+	private ListView mDrawerList;
+	private String[] mPlanetTitles;
+	List<String> menuOptions = new ArrayList<String>();
+	
 	Handler handler = new Handler();
 
 	@Override
@@ -62,11 +77,41 @@ public class RoomsActivity extends Activity {
 		account = UbetAccount.getAccount(context);
 		accountManager = AccountManager.get(context);
 		rooms = new ArrayList<RoomsContent>();
-
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.rooms_drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+		
 		if (account == null) {
 			finish();
 		}
 		
+		mDrawerLayout.setScrimColor(Color.TRANSPARENT);
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.rooms_drawer_list, mPlanetTitles));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+        
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+                ) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle("Rooms");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle("Settings");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        
 		checkAuthenticateUser();
 		
 		list = (ListView) findViewById(R.id.listView_rooms);
@@ -76,6 +121,91 @@ public class RoomsActivity extends Activity {
 		this.handler.postDelayed(checkRunnable, 500L);
 	}
 
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		this.optionsMenu = menu;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.activity_room_actions, menu);
+
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+       /* menu.findItem(R.id.ubet_create_room).setVisible(!drawerOpen);
+        menu.findItem(R.id.ubet_menu_logout).setVisible(!drawerOpen);
+        menu.findItem(R.id.ubet_menu_refresh).setVisible(!drawerOpen);*/
+        
+        return super.onPrepareOptionsMenu(menu);
+    }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+		
+		switch (item.getItemId()) {
+		case R.id.ubet_menu_refresh:
+
+			setRefreshActionButtonState(true);
+			RoomsTask newTask = new RoomsTask();
+			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
+			return true;
+		case R.id.ubet_create_room:
+			final Intent intent = new Intent(this, CreateRoomActivity.class);
+			startActivity(intent);
+			return true;
+		case R.id.ubet_menu_logout:
+			LogoutTask logoutTask = new LogoutTask();
+			logoutTask.executeOnExecutor(Executors.newSingleThreadExecutor());
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        	
+            selectItem(position);
+        }
+    }
+
+    private void selectItem(int position) {
+
+        mDrawerList.setItemChecked(position, true);
+        Toast.makeText(context, mPlanetTitles[position], Toast.LENGTH_SHORT).show();
+        setTitle(mPlanetTitles[position]);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+	
+	@Override
+    public void setTitle(CharSequence title) {
+
+        getActionBar().setTitle(title);
+    }
+
+	@Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggls
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    
 	private final Runnable checkRunnable = new Runnable() {
 		public void run() {
 
@@ -144,37 +274,6 @@ public class RoomsActivity extends Activity {
 		startActivity(intent);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		this.optionsMenu = menu;
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.activity_room_actions, menu);
-
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		switch (item.getItemId()) {
-		case R.id.ubet_menu_refresh:
-
-			setRefreshActionButtonState(true);
-			RoomsTask newTask = new RoomsTask();
-			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
-			return true;
-		case R.id.ubet_create_room:
-			final Intent intent = new Intent(this, CreateRoomActivity.class);
-			startActivity(intent);
-			return true;
-		case R.id.ubet_menu_logout:
-			LogoutTask logoutTask = new LogoutTask();
-			logoutTask.executeOnExecutor(Executors.newSingleThreadExecutor());
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
 
 	private void updateRooms(List<RoomsContent> listOfRooms) {
 

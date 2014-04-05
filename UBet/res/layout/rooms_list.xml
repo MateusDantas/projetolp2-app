@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    
+     >
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingTop="0dp"
+        android:paddingLeft="20dp"
+        android:src="@drawable/ic_action_group" />
 
     <TextView
-		android:id="@+id/room_name"
+        android:id="@+id/room_name"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:paddingLeft="20dp"
-        android:paddingTop="20dp"
-        android:textSize="18sp" >
-    </TextView>
-    
-    <TextView
-        android:id="@+id/room_admin_name"
-		android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingLeft="20dp"
-        android:paddingTop="40dp"
+        android:paddingLeft="70dp"
+        android:paddingTop="0dp"
+        android:textColor="#000000"
         android:textSize="15sp" >
     </TextView>
+
+    <TextView
+        android:id="@+id/room_admin_name"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="70dp"
+        android:paddingTop="20dp"
+        android:textColor="#000000"
+        android:textSize="12sp" >
+    </TextView>
+
 </RelativeLayout>
