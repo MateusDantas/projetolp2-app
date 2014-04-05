@@ -101,6 +101,14 @@
             android:label="@string/title_activity_room_inside" >
         </activity>
         <activity
+            android:name="com.ubet.activity.MyRoomsActivity"
+            android:label="@string/title_activity_my_rooms"
+            android:parentActivityName="com.ubet.activity.RoomsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ubet.activity.RoomsActivity" />
+        </activity>
+        <activity
             android:name="com.ubet.activity.EnterToRoom"
             android:label="@string/title_activity_enter_to_room"
             android:windowSoftInputMode="adjustResize|stateVisible" >

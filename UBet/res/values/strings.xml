@@ -35,7 +35,9 @@
     <string name="title_activity_room">Room</string>
     <string name="title_activity_ranking">Ranking</string>
     <string name="title_activity_profile">Profile</string>
-
+    <string name="title_activity_my_rooms">My Rooms</string>
+        
+    
     <!-- Rooms Activity Strings -->
     <string name="title_activity_rooms">Rooms</string>
     <string name="textView_rooms">Rooms</string>

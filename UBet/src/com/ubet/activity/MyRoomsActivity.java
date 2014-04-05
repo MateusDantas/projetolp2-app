@@ -47,11 +47,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RoomsActivity extends Activity {
+public class MyRoomsActivity extends Activity {
 
-	List<RoomsContent> rooms = new ArrayList<RoomsContent>();
+	List<RoomsContent> myRooms = new ArrayList<RoomsContent>();
 	ListView list;
-	RoomsActivity thisActivity = this;
+	MyRoomsActivity thisActivity = this;
 	private Menu optionsMenu;
 
 	RoomsContentAdapter arrayAdapter = null;
@@ -76,7 +76,8 @@ public class RoomsActivity extends Activity {
 		context = getApplicationContext();
 		account = UbetAccount.getAccount(context);
 		accountManager = AccountManager.get(context);
-		rooms = new ArrayList<RoomsContent>();
+		myRooms = new ArrayList<RoomsContent>();
+		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.rooms_drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		mPlanetTitles = getResources().getStringArray(R.array.planets_array);
@@ -88,17 +89,18 @@ public class RoomsActivity extends Activity {
 		mDrawerLayout.setScrimColor(Color.TRANSPARENT);
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.rooms_drawer_list, mPlanetTitles));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        
+        //mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-        
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
+       
+        /*mDrawerToggle = new ActionBarDrawerToggle(
+                this,                   host Activity 
+                mDrawerLayout,          DrawerLayout object 
+                R.drawable.ic_drawer,   nav drawer image to replace 'Up' caret 
+                R.string.drawer_open,   "open drawer" description for accessibility 
+                R.string.drawer_close   "close drawer" description for accessibility 
                 ) {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle("Rooms");
@@ -109,7 +111,8 @@ public class RoomsActivity extends Activity {
                 getActionBar().setTitle("Settings");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-        };
+        }; */
+        
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         
 		checkAuthenticateUser();
@@ -118,7 +121,7 @@ public class RoomsActivity extends Activity {
 		
 		showRooms();
 
-		this.handler.postDelayed(checkRunnable, 500L);
+		//this.handler.postDelayed(checkRunnable, 500L);
 	}
 
 
@@ -130,7 +133,7 @@ public class RoomsActivity extends Activity {
 
 		return super.onCreateOptionsMenu(menu);
 	}
-
+	
 	@Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
@@ -141,13 +144,15 @@ public class RoomsActivity extends Activity {
         
         return super.onPrepareOptionsMenu(menu);
     }
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
+		/*
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+		*/
 		
 		switch (item.getItemId()) {
 		case R.id.ubet_menu_refresh:
@@ -168,7 +173,8 @@ public class RoomsActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
-	
+	/*
+	/*
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -178,29 +184,9 @@ public class RoomsActivity extends Activity {
     }
 
     private void selectItem(int position) {
-    
-    	mDrawerList.setItemChecked(position, true);
-    	if (position == 0) { //PROFILE
-    		
-    		Intent intent = new Intent(thisActivity, ProfileActivity.class);
-    		//TODO FIX THIS
-    		intent.putExtra("username", "MUDA AQUI MATEUS");
-			startActivity(intent);
-    		
-    	} else if (position == 1) { //MY ROOMS
-    		
-    		Intent intent = new Intent(thisActivity, MyRoomsActivity.class);
-    		
-    		startActivity(intent);
-    		//Toast.makeText(context, mPlanetTitles[position], Toast.LENGTH_SHORT).show();
-    	
-    	} else if (position == 2) { //MY BETS
-    		Toast.makeText(context, mPlanetTitles[position], Toast.LENGTH_SHORT).show();
-    	} else if (position == 3) { //LOGOUT
-    		//TODO
-    		Toast.makeText(context, mPlanetTitles[position], Toast.LENGTH_SHORT).show();
-    	} 
-        
+
+        mDrawerList.setItemChecked(position, true);
+        Toast.makeText(context, mPlanetTitles[position], Toast.LENGTH_SHORT).show();
         setTitle(mPlanetTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
@@ -236,14 +222,15 @@ public class RoomsActivity extends Activity {
 			handler.postDelayed(this, 60000L);
 		}
 	};
-
+	*/
+	
 	public void checkAuthenticateUser() {
 
 		String nowToken = accountManager.peekAuthToken(account,
 				Constants.AUTH_TOKEN_TYPE);
 		if (nowToken == null) {
 			Log.d("u.", "1");
-			this.handler.removeCallbacks(checkRunnable);
+			//this.handler.removeCallbacks(checkRunnable);
 			accountManager.removeAccount(account, null, null);
 			final Intent intent = new Intent(this, StartActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
@@ -257,7 +244,7 @@ public class RoomsActivity extends Activity {
 	private void showRooms() {
 
 		arrayAdapter = new RoomsContentAdapter(getApplicationContext(),
-				R.layout.rooms_list, rooms);
+				R.layout.rooms_list, myRooms);
 
 		list.setAdapter(arrayAdapter);
 
@@ -268,34 +255,18 @@ public class RoomsActivity extends Activity {
 					long arg3) {
 
 				Intent intent = new Intent(thisActivity, RoomActivity.class);
-				intent.putExtra("name", rooms.get(arg2).getRoomName());
-				intent.putExtra("admin_name", rooms.get(arg2).getAdminName());
-				intent.putExtra("room_id", rooms.get(arg2).getRoomId());
-				intent.putExtra("price_room", rooms.get(arg2).getPriceRoom());
-				intent.putExtra("people_inside", rooms.get(arg2).getPeopleInside());
+				intent.putExtra("name", myRooms.get(arg2).getRoomName());
+				intent.putExtra("admin_name", myRooms.get(arg2).getAdminName());
+				intent.putExtra("room_id", myRooms.get(arg2).getRoomId());
+				intent.putExtra("price_room", myRooms.get(arg2).getPriceRoom());
+				intent.putExtra("people_inside", myRooms.get(arg2).getPeopleInside());
 				startActivity(intent);
 			}
 		});
 
 	}
 
-	// When ranking button clicked
-	/** @deprecated  */
-	public void goRanking(View view) {
-		Intent intent = new Intent(this, RankingActivity.class);
-
-		startActivity(intent);
-	}
-
-	// When Profile button clicked
-	/** @deprecated  */
-	public void goProfile(View view) {
-		
-		Intent intent = new Intent(this, ProfileActivity.class);
-		intent.putExtra("username", account.name);
-		startActivity(intent);
-	}
-
+	
 	private void updateRooms(List<RoomsContent> listOfRooms) {
 
 		arrayAdapter.clear();
@@ -326,18 +297,16 @@ public class RoomsActivity extends Activity {
 	}
 
 	private void onProcessFailed() {
-		// TODO Auto-generated method stub
-
 		checkAuthenticateUser();
 		setRefreshActionButtonState(false);
 		Toast.makeText(context, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
 	}
 
 	private void onUserLogoutResult(Integer resultCode) {
-		// TODO Auto-generated method stub
+		
 		if (resultCode == 1) {
 			Toast.makeText(context, "Cya!", Toast.LENGTH_SHORT).show();
-			this.handler.removeCallbacks(checkRunnable);
+			//this.handler.removeCallbacks(checkRunnable);
 			accountManager.removeAccount(account, null, null);
 			final Intent intent = new Intent(this, StartActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
