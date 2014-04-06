@@ -1,6 +1,7 @@
 package com.ubet.activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Executors;
@@ -305,6 +306,7 @@ public class RoomsActivity extends Activity {
 
 	private void updateRooms(List<RoomsContent> listOfRooms) {
 
+		Collections.sort(listOfRooms, new RoomsContent.sortByPeopleInside());
 		arrayAdapter.clear();
 		arrayAdapter.addAll(listOfRooms);
 		arrayAdapter.notifyDataSetChanged();
@@ -337,7 +339,6 @@ public class RoomsActivity extends Activity {
 
 		checkAuthenticateUser();
 		setRefreshActionButtonState(false);
-		Toast.makeText(context, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
 	}
 
 	private void onUserLogoutResult(Integer resultCode) {
@@ -422,7 +423,8 @@ public class RoomsActivity extends Activity {
 		protected List<RoomsContent> doInBackground(Void... params) {
 
 			try {
-
+				if (account == null)
+					return null;
 				List<RoomsContent> listOfRooms = RoomsApi.getAllRooms(
 						account.name, context);
 				return listOfRooms;

@@ -173,8 +173,6 @@ public class EnterToRoom extends Activity {
 		}
 
 		if (roomId == -1) {
-			Toast.makeText(context, "Something went wrong! try again..",
-					Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -185,7 +183,7 @@ public class EnterToRoom extends Activity {
 		} else {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
-			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
+			mLoginStatusMessageView.setText(R.string.loading_progress_message);
 			showProgress(true);
 			mAuthTask = new UserRoomTask();
 			mAuthTask.execute((Void) null);

@@ -2,6 +2,7 @@ package com.ubet.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -193,15 +194,19 @@ public class BetsActivity extends FragmentActivity implements
 
 		private GamesSectionFragment thisFragment = this;
 
+		GamesTask newTask;
+		
 		Context nowContext;
 
 		int round, roomId;
 		String roomName;
+		
+		View rootView;
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_bets_rounds,
+			rootView = inflater.inflate(R.layout.fragment_bets_rounds,
 					container, false);
 			Bundle args = getArguments();
 			round = args.getInt("round");
@@ -211,10 +216,13 @@ public class BetsActivity extends FragmentActivity implements
 
 			list = (ListView) rootView.findViewById(R.id.listView_games);
 
+			
 			showItens();
 			if (games.size() == 0) {
-				GamesTask newTask = new GamesTask();
-				newTask.execute();
+				final View linear = rootView.findViewById(R.id.loading_status);
+				linear.setVisibility(View.VISIBLE);
+				newTask = new GamesTask();
+				newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			}
 			return rootView;
 		}
@@ -254,6 +262,12 @@ public class BetsActivity extends FragmentActivity implements
 			if (listOfGames == null)
 				return;
 
+			if (rootView == null)
+				return;
+			
+			final View linear = rootView.findViewById(R.id.loading_status);
+			linear.setVisibility(View.INVISIBLE);
+			
 			arrayAdapter.clear();
 			arrayAdapter.addAll(listOfGames);
 			arrayAdapter.notifyDataSetChanged();

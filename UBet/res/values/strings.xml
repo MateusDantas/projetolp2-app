@@ -45,7 +45,10 @@
     <string name="menu_item_refresh">Refresh</string>
     <string name="menu_item_add_group">Add Group</string>
     <string name="menu_item_logout">Logout</string>
+    <string name="loading_progress_message">Loading...</string>
 
+    <string name="register_room">Enter Room</string>
+    
     <!-- Create Room Activity Strings -->
     <string name="create_room_name">Room Name</string>
     <string name="create_room_password">Room Password</string>

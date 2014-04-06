@@ -1,6 +1,7 @@
 package com.ubet.activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -183,6 +184,7 @@ public class RoomInside extends Activity {
 
 	private void updateUsers(List<UsersContent> listOfUsers) {
 
+		Collections.sort(listOfUsers, new UsersContent.sortByScore());
 		arrayAdapter.clear();
 		arrayAdapter.addAll(listOfUsers);
 		arrayAdapter.notifyDataSetChanged();
@@ -215,8 +217,6 @@ public class RoomInside extends Activity {
 
 		checkAuthenticateUser();
 		setRefreshActionButtonState(false);
-		Toast.makeText(context, "Something went wrong! Try again!",
-				Toast.LENGTH_SHORT).show();
 	}
 
 	public class UsersContentAdapter extends ArrayAdapter<UsersContent> {

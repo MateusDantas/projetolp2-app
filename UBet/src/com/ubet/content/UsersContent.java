@@ -1,5 +1,9 @@
 package com.ubet.content;
 
+import java.util.Comparator;
+
+
+
 public class UsersContent {
 
 	private String name;
@@ -12,6 +16,24 @@ public class UsersContent {
 		this.setScore(score);
 	}
 
+	public static class sortByCoins implements Comparator<UsersContent> {
+		
+		@Override
+		public int compare(UsersContent userOne, UsersContent userTwo) {
+			return userTwo.getCoins() - userOne.getCoins();
+		}
+	}
+
+	public static class sortByScore implements Comparator<UsersContent> {
+
+		@Override
+		public int compare(UsersContent userOne, UsersContent userTwo) {
+			// TODO Auto-generated method stub
+			return userTwo.getScore() - userOne.getScore();
+		}
+		
+	}
+	
 	public String getName() {
 		return name;
 	}

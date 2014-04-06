@@ -1,5 +1,7 @@
 package com.ubet.content;
 
+import java.util.Comparator;
+
 public class RoomsContent {
 
 	private String adminName;
@@ -22,6 +24,14 @@ public class RoomsContent {
 			this.isPublicRoom = false;
 	}
 
+	public static class sortByPeopleInside implements Comparator<RoomsContent> {
+		
+		@Override
+		public int compare(RoomsContent userOne, RoomsContent userTwo) {
+			return userTwo.getPeopleInside() - userOne.getPeopleInside();
+		}
+	}
+	
 	public String getAdminName() {
 		return adminName;
 	}

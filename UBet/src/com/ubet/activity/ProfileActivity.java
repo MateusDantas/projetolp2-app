@@ -213,7 +213,6 @@ public class ProfileActivity extends Activity {
 
 		checkAuthenticateUser();
 		setRefreshActionButtonState(false);
-		Toast.makeText(context, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
 	}
 
 	public class RoomsContentAdapter extends ArrayAdapter<RoomsContent> {
