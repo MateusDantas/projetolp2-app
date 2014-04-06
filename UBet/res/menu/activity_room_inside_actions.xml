@@ -4,6 +4,13 @@
          android:icon="@drawable/ic_action_refresh"
          android:title="@string/menu_item_refresh"
          android:alphabeticShortcut="r"
+         android:orderInCategory="2"
+         android:showAsAction="always" />
+    
+    <item android:id="@+id/ubet_menu_room_inside_make_bet"
+         android:icon="@drawable/ic_action_new"
+         android:title="Add Bet"
+         android:alphabeticShortcut="b"
          android:orderInCategory="1"
          android:showAsAction="always" />
     

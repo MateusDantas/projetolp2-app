@@ -72,6 +72,11 @@ public class CreateRoomActivity extends ActionBarActivity {
 	
 	public void checkAuthenticateUser() {
     	
+		if (account == null) {
+			finish();
+			return;
+		}
+		
     	AccountManager accountManager = AccountManager.get(context);
     	String nowToken = accountManager.peekAuthToken(account, Constants.AUTH_TOKEN_TYPE);
     	if (nowToken == null) {

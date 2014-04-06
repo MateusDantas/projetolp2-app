@@ -111,6 +111,11 @@ public class ProfileActivity extends Activity {
 
 	public void checkAuthenticateUser() {
 
+		if (account == null) {
+			finish();
+			return;
+		}
+		
 		String nowToken = accountManager.peekAuthToken(account,
 				Constants.AUTH_TOKEN_TYPE);
 		if (nowToken == null) {

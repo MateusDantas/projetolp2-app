@@ -2,49 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    
-     >
-
-    <EditText
-        android:id="@+id/first_team_score"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewX"
-        android:layout_alignBottom="@+id/textViewX"
-        android:layout_toRightOf="@+id/first_team_name"
-        android:ems="10"
-        android:inputType="number" />
-
-    <TextView
-        android:id="@+id/textViewX"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/first_team_name"
-        android:layout_toRightOf="@+id/first_team_score"
-        android:text="X"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/second_team_score"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewX"
-        android:layout_alignBottom="@+id/textViewX"
-        android:layout_toRightOf="@+id/textViewX"
-        android:ems="10"
-        android:inputType="number" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/second_team_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textViewX"
-        android:layout_toRightOf="@+id/second_team_score"
-        android:text="Botafogo"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+    android:gravity="right" >
 
     <TextView
         android:id="@+id/first_team_name"
@@ -52,21 +10,69 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="15dp"
         android:text="Flamengo"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+       android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/textViewX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="X"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/second_team_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Botafogo"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/game_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/first_team_name"
+        android:text="22/02/2014"
+        android:textSize="10sp" />
+
+    <EditText
+        android:id="@+id/first_team_score"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/game_date"
+        android:layout_alignBottom="@+id/game_date"
+        android:layout_toLeftOf="@+id/textViewX"
+        android:ems="10"
+        android:inputType="number"
+        android:textColor="#808080" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/second_team_score"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/first_team_score"
+        android:layout_alignBottom="@+id/first_team_score"
+        android:layout_toRightOf="@+id/textViewX"
+        android:ems="10"
+        android:inputType="number"
+        android:textColor="#808080" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/change_bet"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/second_team_score"
-        android:layout_alignBottom="@+id/second_team_score"
-        android:layout_marginLeft="14dp"
-        android:layout_toRightOf="@+id/second_team_name"
-        android:text="Ok!"
-        android:textSize="10dp" />
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/second_team_score"
+        android:text="Change Bet" />
 
 </RelativeLayout>

@@ -88,8 +88,12 @@
     <string name="erro26">Internal error!</string>
     <string name="erro27">Insuficient Coins</string>
     <string name="erro28">Request unauthorized!</string>
+    <string name="erro29">Lim extra bets exceeded!</string>
+    <string name="erro30">Invalid Room</string>
+    <string name="erro31">Time is up!</string>
     <string name="title_activity_create_room">Create Room</string>
     <string name="title_activity_room_inside">Room</string>
     <string name="title_activity_bets">Games</string>
+    <string name="title_activity_make_bet">Make Bet</string>
 
 </resources>

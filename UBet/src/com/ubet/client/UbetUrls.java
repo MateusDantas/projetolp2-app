@@ -29,6 +29,7 @@ public class UbetUrls {
 	 * Bet's URL
 	 */
 	public static final String MAKE_BET = "bets/makebet";
+	public static final String CHANGE_BET = "bets/changebet";
 	public static final String GET_BETS_BY_USER_BY_ROOM = "bets/betsbyuserbyroom";
 	public static final String GET_BETS_BY_USER_BY_GAME = "bets/betsbyuserbygame";
 	public static final String GET_BETS_BY_USER = "bets/betsbyuser";

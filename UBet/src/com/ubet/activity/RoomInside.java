@@ -169,6 +169,13 @@ public class RoomInside extends Activity {
 			UsersTask newTask = new UsersTask();
 			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			return true;
+		case R.id.ubet_menu_room_inside_make_bet:
+			
+			Intent intent = new Intent(this, BetsActivity.class);
+			intent.putExtra("roomid", roomId);
+			intent.putExtra("roomname", roomName);
+			startActivity(intent);
+			return true;
 		}
 
 		return super.onOptionsItemSelected(item);

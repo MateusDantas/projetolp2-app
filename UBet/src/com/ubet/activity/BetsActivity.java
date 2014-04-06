@@ -41,30 +41,55 @@ public class BetsActivity extends FragmentActivity implements
 
 	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
-	ViewPager mViewPager;
+	private BetsActivity thisActivity = this;
 	
+	ViewPager mViewPager;
+
 	Context context;
 	Account account;
 	AccountManager accountManager;
+	static int roomId = -1;
+	static String roomName = "";
 
 	public void onCreate(Bundle savedInstance) {
 		super.onCreate(savedInstance);
 		setContentView(R.layout.activity_bets);
 
-		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(
-				getSupportFragmentManager());
-
 		context = getApplicationContext();
 		account = UbetAccount.getAccount(context);
 		accountManager = AccountManager.get(context);
-		
+
+		roomId = -1;
+
 		if (account == null)
 			finish();
-		
+
 		if (context == null)
 			finish();
-		
+
+		Intent intent = getIntent();
+
+		if (intent.getExtras() != null) {
+
+			roomId = intent.getExtras().getInt("roomid");
+			roomName = intent.getExtras().getString("roomname");
+
+			if (roomName == null) {
+				roomId = -1;
+				roomName = "";
+			}
+		}
+
+		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(
+				getSupportFragmentManager(), roomId, roomName);
+
 		final ActionBar actionBar = getActionBar();
+
+		if (roomId == -1)
+			actionBar.setTitle("Games");
+		else
+			actionBar.setTitle("Room: " + roomName);
+
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -105,19 +130,27 @@ public class BetsActivity extends FragmentActivity implements
 
 	public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
-		public AppSectionsPagerAdapter(FragmentManager fm) {
+		int roomId;
+		String roomName;
+
+		public AppSectionsPagerAdapter(FragmentManager fm, int roomId,
+				String roomName) {
 			super(fm);
+			this.roomId = roomId;
+			this.roomName = roomName;
 		}
 
 		@Override
 		public Fragment getItem(int pos) {
-			
+
 			Fragment fragment = new GamesSectionFragment();
-            Bundle args = new Bundle();
-            args.putInt("round", pos + 1);
-            fragment.setArguments(args);
-            
-            return fragment;
+			Bundle args = new Bundle();
+			args.putInt("round", pos + 1);
+			args.putInt("roomid", this.roomId);
+			args.putString("roomname", this.roomName);
+			fragment.setArguments(args);
+
+			return fragment;
 		}
 
 		@Override
@@ -157,13 +190,14 @@ public class BetsActivity extends FragmentActivity implements
 		List<GamesContent> games = new ArrayList<GamesContent>();
 		ListView list;
 		GamesContentAdapter arrayAdapter = null;
-		
+
 		private GamesSectionFragment thisFragment = this;
 
 		Context nowContext;
-		
-		int round;
-		
+
+		int round, roomId;
+		String roomName;
+
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -171,52 +205,70 @@ public class BetsActivity extends FragmentActivity implements
 					container, false);
 			Bundle args = getArguments();
 			round = args.getInt("round");
-			
+			roomId = args.getInt("roomid");
+			roomName = args.getString("roomname");
 			nowContext = getActivity();
+
 			list = (ListView) rootView.findViewById(R.id.listView_games);
+
 			showItens();
-			GamesTask newTask = new GamesTask();
-			newTask.execute();
+			if (games.size() == 0) {
+				GamesTask newTask = new GamesTask();
+				newTask.execute();
+			}
 			return rootView;
 		}
-		
+
 		private void showItens() {
 
-			arrayAdapter = new GamesContentAdapter(getActivity(), R.layout.rooms_list,
-					games);
+			arrayAdapter = new GamesContentAdapter(getActivity(),
+					R.layout.games_list, games);
 
 			list.setAdapter(arrayAdapter);
 
 			list.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-						long arg3) {
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
 
-					Toast.makeText(getActivity(), "ola", Toast.LENGTH_SHORT).show();
+					if (roomId >= 0) {
+						Log.d("opa", "sim");
+						Intent intent = new Intent(nowContext, MakeBetActivity.class);
+						intent.putExtra("round", round);
+						intent.putExtra("roomid", roomId);
+						intent.putExtra("gameid", games.get(arg2).getGameId());
+						intent.putExtra("first_team_name", games.get(arg2).getFirstTeamName());
+						intent.putExtra("second_team_name", games.get(arg2).getSecondTeamName());
+						intent.putExtra("gamedate", games.get(arg2).getFormattedDate());
+						intent.putExtra("roomname", roomName);
+						
+						startActivity(intent);
+					}
 				}
 			});
 		}
-		
 
 		public void onListOfGamesComplete(List<GamesContent> listOfGames) {
 			// TODO Auto-generated method stub
 			if (listOfGames == null)
 				return;
-			
+
 			arrayAdapter.clear();
 			arrayAdapter.addAll(listOfGames);
 			arrayAdapter.notifyDataSetChanged();
 		}
-		
-		public class GamesTask extends AsyncTask<Void, Void, List<GamesContent>> {
+
+		public class GamesTask extends
+				AsyncTask<Void, Void, List<GamesContent>> {
 
 			@Override
 			protected List<GamesContent> doInBackground(Void... params) {
 
 				try {
-					Log.d("round " + String.valueOf(round),"ok");
-					List<GamesContent> listOfGames = GamesApi.gamesByRound(round, nowContext);
+					Log.d("round " + String.valueOf(round), "ok");
+					List<GamesContent> listOfGames = GamesApi.gamesByRound(
+							round, nowContext);
 					return listOfGames;
 				} catch (Exception e) {
 
@@ -232,15 +284,18 @@ public class BetsActivity extends FragmentActivity implements
 				onListOfGamesComplete(listOfGames);
 			}
 		}
-		
+
 		public class GamesContentAdapter extends ArrayAdapter<GamesContent> {
 
 			private Context context;
+
+			int textViewResourceId;
 
 			public GamesContentAdapter(Context context, int textViewResourceId,
 					List<GamesContent> items) {
 				super(context, textViewResourceId, items);
 				this.context = context;
+				this.textViewResourceId = textViewResourceId;
 			}
 
 			@Override
@@ -249,29 +304,31 @@ public class BetsActivity extends FragmentActivity implements
 				if (view == null) {
 					LayoutInflater inflater = (LayoutInflater) context
 							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-					view = inflater.inflate(R.layout.games_list, null);
+					view = inflater.inflate(this.textViewResourceId, null);
 				}
 
 				GamesContent item = getItem(position);
 				if (item != null) {
-					
-					TextView firstTeamView = (TextView) view.findViewById(R.id.first_team_name);
-					TextView secondTeamView = (TextView) view.findViewById(R.id.second_team_name);
-					TextView dateView = (TextView) view.findViewById(R.id.game_date);
-					
+
+					TextView firstTeamView = (TextView) view
+							.findViewById(R.id.first_team_name);
+					TextView secondTeamView = (TextView) view
+							.findViewById(R.id.second_team_name);
+					TextView dateView = (TextView) view
+							.findViewById(R.id.game_date);
+
 					if (firstTeamView != null)
 						firstTeamView.setText(item.getFirstTeamName());
-					
+
 					if (secondTeamView != null)
 						secondTeamView.setText(item.getSecondTeamName());
-					
+
 					if (dateView != null)
 						dateView.setText(item.getFormattedDate());
 				}
 				return view;
 			}
 		}
-
 
 	}
 

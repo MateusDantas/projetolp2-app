@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/room_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:text="Room: lobby"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/round"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/room_name"
+        android:layout_alignBottom="@+id/room_name"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
+        android:text="Rodada: 1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ListView
+        android:id="@+id/listView_bets"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_below="@+id/room_name"
+        android:layout_centerHorizontal="true" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/second_team_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/first_team_name"
+        android:layout_below="@+id/first_team_name"
+        android:layout_marginTop="14dp"
+        android:text="Botafogo"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/first_team_score_activity"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/first_team_name"
+        android:layout_alignBottom="@+id/first_team_name"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/first_team_name"
+        android:ems="10"
+        
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/second_team_score_activity"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/first_team_score_activity"
+        android:layout_below="@+id/first_team_score_activity"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/first_team_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/room_name"
+        android:layout_below="@+id/listView_bets"
+        android:layout_marginTop="20dp"
+        android:text="Flamengo"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/make_bet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="makeBet"
+        android:text="Make Bet" />
+    
+</RelativeLayout>

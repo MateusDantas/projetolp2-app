@@ -36,7 +36,8 @@ public class GamesApi {
 		if (instream == null)
 			return null;
 
-		Document doc = Jsoup.parse(instream, "ISO-8859-15", "ubet.herokuapp.com");
+		Document doc = Jsoup.parse(instream, "ISO-8859-15",
+				"ubet.herokuapp.com");
 
 		if (doc == null)
 			return null;
@@ -52,9 +53,14 @@ public class GamesApi {
 			String firstTeamName = element.attr("first_team_name");
 			String secondTeamName = element.attr("second_team_name");
 			String gameDate = element.attr("date");
+			int gameId = Integer.valueOf(element.attr("gameid"));
+			int scoreOne = Integer.valueOf(element.attr("score_one"));
+			int scoreTwo = Integer.valueOf(element.attr("score_two"));
 
-			listOfGames.add(new GamesContent(firstTeamId, secondTeamId,
-					firstTeamName, secondTeamName, gameDate));
+			listOfGames
+					.add(new GamesContent(firstTeamId, secondTeamId, gameId,
+							firstTeamName, secondTeamName, scoreOne, scoreTwo,
+							gameDate));
 		}
 
 		return listOfGames;
