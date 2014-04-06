@@ -52,11 +52,14 @@ public class ProfileActivity extends Activity {
 	private AccountManager accountManager;
 
 	private String username;
-	
+
 	private TextView usernameView, ubetsView;
-	
+
 	private int userCoins;
-	
+
+	RoomsTask newTask;
+	UserTask userTask;
+
 	Handler handler = new Handler();
 
 	@Override
@@ -65,34 +68,34 @@ public class ProfileActivity extends Activity {
 		setContentView(R.layout.activity_profile);
 
 		Intent intent = getIntent();
-		
+
 		context = getApplicationContext();
 		account = UbetAccount.getAccount(context);
 		accountManager = AccountManager.get(context);
 		rooms = new ArrayList<RoomsContent>();
 
 		if (account == null) {
-			finish();
+			killThemAll();
 		}
 		checkAuthenticateUser();
-		
+
 		list = (ListView) findViewById(R.id.listView_rooms_registered);
 
 		usernameView = (TextView) findViewById(R.id.textView_name);
 		ubetsView = (TextView) findViewById(R.id.textView_ubets);
-		
+
 		userCoins = 0;
-		
+
 		username = intent.getExtras().getString("username");
-		
+
 		if (username == null) {
-			finish();
+			killThemAll();
 		}
-		
+
 		ubetsView.setText("Coins: " + String.valueOf(userCoins));
 		usernameView.setText("User: " + username);
 		showItens();
-		
+
 		this.handler.postDelayed(checkRunnable, 500L);
 	}
 
@@ -101,32 +104,41 @@ public class ProfileActivity extends Activity {
 
 			checkAuthenticateUser();
 			setRefreshActionButtonState(true);
-			RoomsTask newTask = new RoomsTask();
-			UserTask userTask = new UserTask();
+			newTask = new RoomsTask();
+			userTask = new UserTask();
 			userTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			handler.postDelayed(this, 60000L);
 		}
 	};
 
+	void killThemAll() {
+
+		if (newTask != null)
+			newTask.cancel(true);
+		if (userTask != null)
+			userTask.cancel(true);
+		finish();
+	}
+
 	public void checkAuthenticateUser() {
 
-		if (account == null) {
-			finish();
+		if (accountManager.getAccountsByType(Constants.ACCOUNT_TYPE).length == 0) {
+			killThemAll();
 			return;
 		}
-		
+
+		if (account == null) {
+			killThemAll();
+			return;
+		}
+
 		String nowToken = accountManager.peekAuthToken(account,
 				Constants.AUTH_TOKEN_TYPE);
 		if (nowToken == null) {
 			this.handler.removeCallbacks(checkRunnable);
 			accountManager.removeAccount(account, null, null);
-			final Intent intent = new Intent(this, StartActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-					| Intent.FLAG_ACTIVITY_CLEAR_TASK
-					| Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			finish();
+			killThemAll();
 		}
 	}
 
@@ -171,7 +183,7 @@ public class ProfileActivity extends Activity {
 		case R.id.ubet_menu_refresh:
 
 			setRefreshActionButtonState(true);
-			RoomsTask newTask = new RoomsTask();
+			newTask = new RoomsTask();
 			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			return true;
 		}
@@ -256,7 +268,7 @@ public class ProfileActivity extends Activity {
 		this.userCoins = coins;
 		ubetsView.setText("Coins: " + String.valueOf(userCoins));
 	}
-	
+
 	public class RoomsTask extends AsyncTask<Void, Void, List<RoomsContent>> {
 
 		@Override
@@ -270,7 +282,6 @@ public class ProfileActivity extends Activity {
 			} catch (Exception e) {
 
 				e.printStackTrace();
-				Log.d("erro", e.getMessage().toString());
 				return null;
 			}
 		}
@@ -286,7 +297,7 @@ public class ProfileActivity extends Activity {
 			onListOfRoomsComplete(listOfRooms);
 		}
 	}
-	
+
 	public class UserTask extends AsyncTask<Void, Void, Integer> {
 
 		@Override
@@ -298,7 +309,7 @@ public class ProfileActivity extends Activity {
 			} catch (Exception e) {
 
 				e.printStackTrace();
-				//Log.d("erro", e.getMessage().toString());
+				// Log.d("erro", e.getMessage().toString());
 				return 0;
 			}
 		}
@@ -306,9 +317,8 @@ public class ProfileActivity extends Activity {
 		@Override
 		protected void onPostExecute(final Integer coins) {
 
-
 			onUserTaskResult(coins);
 		}
-		
+
 	}
 }

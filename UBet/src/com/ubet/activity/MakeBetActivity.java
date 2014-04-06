@@ -425,7 +425,6 @@ public class MakeBetActivity extends Activity {
 			} catch (Exception e) {
 
 				e.printStackTrace();
-				Log.d("erro", e.getMessage().toString());
 				return null;
 			}
 		}
@@ -450,7 +449,6 @@ public class MakeBetActivity extends Activity {
 			} catch (Exception e) {
 
 				e.printStackTrace();
-				Log.d("erro", e.getMessage().toString());
 				return null;
 			}
 		}

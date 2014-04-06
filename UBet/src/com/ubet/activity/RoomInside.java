@@ -62,7 +62,10 @@ public class RoomInside extends Activity {
 	private String adminName, roomName;
 
 	Handler handler = new Handler();
-
+	
+	UsersTask userTask;
+	UsersTask newTask;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,7 +95,7 @@ public class RoomInside extends Activity {
 		Intent intent = getIntent();
 
 		if (intent == null) {
-			finish();
+			killThemAll();
 		}
 
 		roomId = intent.getExtras().getInt("roomid");
@@ -100,7 +103,7 @@ public class RoomInside extends Activity {
 		roomName = intent.getExtras().getString("room_name");
 
 		if (roomId == 0 || adminName == null || roomName == null) {
-			finish();
+			killThemAll();
 		}
 	}
 
@@ -109,25 +112,40 @@ public class RoomInside extends Activity {
 
 			checkAuthenticateUser();
 			setRefreshActionButtonState(true);
-			UsersTask userTask = new UsersTask();
+			userTask = new UsersTask();
 			userTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			handler.postDelayed(this, 60000L);
 		}
 	};
 
+	void killThemAll() {
+		
+		if (userTask != null)
+			userTask.cancel(true);
+		if (newTask != null)
+			newTask.cancel(true);
+		finish();
+	}
+	
+	
 	public void checkAuthenticateUser() {
 
+		if (accountManager.getAccountsByType(Constants.ACCOUNT_TYPE).length == 0) {
+			killThemAll();
+			return;
+		}
+		
+		if (account == null) {
+			killThemAll();
+			return;
+		}
+		
 		String nowToken = accountManager.peekAuthToken(account,
 				Constants.AUTH_TOKEN_TYPE);
 		if (nowToken == null) {
 			this.handler.removeCallbacks(checkRunnable);
 			accountManager.removeAccount(account, null, null);
-			final Intent intent = new Intent(this, StartActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-					| Intent.FLAG_ACTIVITY_CLEAR_TASK
-					| Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			finish();
+			killThemAll();
 		}
 	}
 
@@ -167,7 +185,7 @@ public class RoomInside extends Activity {
 		case R.id.ubet_menu_room_inside_refresh:
 
 			setRefreshActionButtonState(true);
-			UsersTask newTask = new UsersTask();
+			newTask = new UsersTask();
 			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			return true;
 		case R.id.ubet_menu_room_inside_make_bet:
@@ -269,7 +287,6 @@ public class RoomInside extends Activity {
 			} catch (Exception e) {
 
 				e.printStackTrace();
-				Log.d("erro", e.getMessage().toString());
 				return null;
 			}
 		}

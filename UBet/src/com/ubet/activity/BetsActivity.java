@@ -287,7 +287,6 @@ public class BetsActivity extends FragmentActivity implements
 				} catch (Exception e) {
 
 					e.printStackTrace();
-					Log.d("erro", e.getMessage().toString());
 					return null;
 				}
 			}

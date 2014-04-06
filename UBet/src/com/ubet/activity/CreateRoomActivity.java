@@ -45,6 +45,8 @@ public class CreateRoomActivity extends ActionBarActivity {
 
 	Handler handler = new Handler();
 	
+	CreateRoomTask roomTask;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,23 +72,33 @@ public class CreateRoomActivity extends ActionBarActivity {
 		}
 	};
 	
+	void killThemAll() {
+		
+		if (roomTask != null)
+			roomTask.cancel(true);
+		finish();
+	}
+	
 	public void checkAuthenticateUser() {
     	
+
+		
 		if (account == null) {
-			finish();
+			killThemAll();
 			return;
 		}
 		
     	AccountManager accountManager = AccountManager.get(context);
+    	
+		if (accountManager.getAccountsByType(Constants.ACCOUNT_TYPE).length == 0) {
+			killThemAll();
+			return;
+		}
+    	
     	String nowToken = accountManager.peekAuthToken(account, Constants.AUTH_TOKEN_TYPE);
     	if (nowToken == null) {
     		accountManager.removeAccount(account, null, null);
-    		final Intent intent = new Intent(this, StartActivity.class);
-    		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-    				| Intent.FLAG_ACTIVITY_CLEAR_TASK
-    				| Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    		startActivity(intent);
-    		finish();
+    		killThemAll();
     	}
     }
 	
@@ -131,7 +143,7 @@ public class CreateRoomActivity extends ActionBarActivity {
 		} else {
 			TextView errorMessage = (TextView) findViewById(R.id.create_room_error_message);
 			errorMessage.setText("Loading...");
-			CreateRoomTask roomTask = new CreateRoomTask();
+			roomTask = new CreateRoomTask();
 			roomTask.execute();
 		}
 	}
@@ -190,7 +202,7 @@ public class CreateRoomActivity extends ActionBarActivity {
 					| Intent.FLAG_ACTIVITY_CLEAR_TASK
 					| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-			finish();
+			killThemAll();
 		} else {
 			errorMessage.setText(getError(resultCode));
 		}

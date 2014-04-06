@@ -68,6 +68,9 @@ public class RoomsActivity extends Activity {
 	List<String> menuOptions = new ArrayList<String>();
 	
 	Handler handler = new Handler();
+	
+	RoomsTask newTask;
+	LogoutTask logoutTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +86,7 @@ public class RoomsActivity extends Activity {
 		mPlanetTitles = getResources().getStringArray(R.array.planets_array);
 		
 		if (account == null) {
-			finish();
+			killThemAll();
 		}
 		
 		mDrawerLayout.setScrimColor(Color.TRANSPARENT);
@@ -154,7 +157,7 @@ public class RoomsActivity extends Activity {
 		case R.id.ubet_menu_refresh:
 
 			setRefreshActionButtonState(true);
-			RoomsTask newTask = new RoomsTask();
+			newTask = new RoomsTask();
 			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			return true;
 		case R.id.ubet_create_room:
@@ -162,7 +165,7 @@ public class RoomsActivity extends Activity {
 			startActivity(intent);
 			return true;
 		case R.id.ubet_menu_logout:
-			LogoutTask logoutTask = new LogoutTask();
+			logoutTask = new LogoutTask();
 			logoutTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			return true;
 		}
@@ -234,16 +237,30 @@ public class RoomsActivity extends Activity {
 
 			checkAuthenticateUser();
 			setRefreshActionButtonState(true);
-			RoomsTask newTask = new RoomsTask();
+			newTask = new RoomsTask();
 			newTask.executeOnExecutor(Executors.newSingleThreadExecutor());
 			handler.postDelayed(this, 60000L);
 		}
 	};
 
+	void killThemAll() {
+		
+		if (logoutTask != null)
+			logoutTask.cancel(true);
+		if (newTask != null)
+			newTask.cancel(true);
+		finish();
+	}
+	
 	public void checkAuthenticateUser() {
 
+		if (accountManager.getAccountsByType(Constants.ACCOUNT_TYPE).length == 0) {
+			killThemAll();
+			return;
+		}
+		
 		if (account == null) {
-			finish();
+			killThemAll();
 			return;
 		}
 		
@@ -258,7 +275,7 @@ public class RoomsActivity extends Activity {
 					| Intent.FLAG_ACTIVITY_CLEAR_TASK
 					| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-			finish();
+			killThemAll();
 		}
 	}
 
@@ -352,7 +369,7 @@ public class RoomsActivity extends Activity {
 					| Intent.FLAG_ACTIVITY_CLEAR_TASK
 					| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-			finish();
+			killThemAll();
 		} else {
 			Toast.makeText(context, "You shall not pass!", Toast.LENGTH_SHORT)
 					.show();
@@ -431,7 +448,6 @@ public class RoomsActivity extends Activity {
 			} catch (Exception e) {
 
 				e.printStackTrace();
-				Log.d("erro", e.getMessage().toString());
 				return null;
 			}
 		}
