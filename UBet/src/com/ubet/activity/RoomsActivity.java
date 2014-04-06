@@ -101,12 +101,12 @@ public class RoomsActivity extends Activity {
                 R.string.drawer_close  /* "close drawer" description for accessibility */
                 ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle("Rooms");
+                getActionBar().setTitle("ROOMS");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle("Settings");
+                getActionBar().setTitle("SETTINGS");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -183,19 +183,21 @@ public class RoomsActivity extends Activity {
     	if (position == 0) { //PROFILE
     		
     		Intent intent = new Intent(thisActivity, ProfileActivity.class);
-    		//TODO FIX THIS
-    		intent.putExtra("username", "MUDA AQUI MATEUS");
+    		intent.putExtra("username", account.name);
 			startActivity(intent);
     		
     	} else if (position == 1) { //MY ROOMS
     		
-    		Intent intent = new Intent(thisActivity, MyRoomsActivity.class);
+    		/*Intent intent = new Intent(thisActivity, MyRoomsActivity.class);
     		
-    		startActivity(intent);
+    		startActivity(intent);*/
     		//Toast.makeText(context, mPlanetTitles[position], Toast.LENGTH_SHORT).show();
     	
     	} else if (position == 2) { //MY BETS
-    		Toast.makeText(context, mPlanetTitles[position], Toast.LENGTH_SHORT).show();
+    		
+    		Intent intent = new Intent(this, BetsActivity.class);
+    		startActivity(intent);
+    		
     	} else if (position == 3) { //LOGOUT
     		//TODO
     		Toast.makeText(context, mPlanetTitles[position], Toast.LENGTH_SHORT).show();
@@ -368,8 +370,8 @@ public class RoomsActivity extends Activity {
 				LayoutInflater inflater = (LayoutInflater) context
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				view = inflater.inflate(R.layout.rooms_list, null);
+				
 			}
-
 			RoomsContent item = getItem(position);
 			if (item != null) {
 				TextView itemViewRoomName = (TextView) view

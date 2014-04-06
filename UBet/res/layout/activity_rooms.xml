@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rooms_drawer_layout"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_tile_v2"
+   
     android:layout_height="match_parent">
 
     <ListView

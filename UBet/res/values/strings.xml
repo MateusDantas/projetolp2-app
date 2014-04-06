@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-     <string-array name="planets_array">
+    <string-array name="planets_array">
         <item>Profile</item>
         <item>My rooms</item>
         <item>My bets</item>
         <item>Logout</item>
     </string-array>
-    
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="app_name">UBet</string>
@@ -36,8 +36,7 @@
     <string name="title_activity_ranking">Ranking</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_my_rooms">My Rooms</string>
-        
-    
+
     <!-- Rooms Activity Strings -->
     <string name="title_activity_rooms">Rooms</string>
     <string name="textView_rooms">Rooms</string>
@@ -91,5 +90,6 @@
     <string name="erro28">Request unauthorized!</string>
     <string name="title_activity_create_room">Create Room</string>
     <string name="title_activity_room_inside">Room</string>
+    <string name="title_activity_bets">Games</string>
 
 </resources>

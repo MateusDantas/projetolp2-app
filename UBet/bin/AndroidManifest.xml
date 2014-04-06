@@ -113,6 +113,10 @@
             android:label="@string/title_activity_enter_to_room"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+        <activity
+            android:name="com.ubet.activity.BetsActivity"
+            android:label="@string/title_activity_bets" >
+        </activity>
     </application>
 
 </manifest>

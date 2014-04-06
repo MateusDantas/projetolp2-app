@@ -44,6 +44,8 @@ public class RoomsApi {
 		if (doc == null)
 			return null;
 
+		
+		
 		Elements rooms = doc.getElementsByClass("room");
 
 		List<RoomsContent> listOfRooms = new ArrayList<RoomsContent>();

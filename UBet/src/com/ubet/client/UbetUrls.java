@@ -24,4 +24,17 @@ public class UbetUrls {
 	public static final String GET_POINTS_USER_IN_ROOM_URL = "rooms/pointsuser";
 	public static final String LAST_UPDATE_ROOM = "rooms/lastupdate";
 	public static final String IS_USER_IN_ROOM = "rooms/isuserinroom";
+	
+	/**
+	 * Bet's URL
+	 */
+	public static final String MAKE_BET = "bets/makebet";
+	public static final String GET_BETS_BY_USER_BY_ROOM = "bets/betsbyuserbyroom";
+	public static final String GET_BETS_BY_USER_BY_GAME = "bets/betsbyuserbygame";
+	public static final String GET_BETS_BY_USER = "bets/betsbyuser";
+	
+	/**
+	 * Game's URL
+	 */
+	public static final String GET_GAMES_BY_ROUND = "games/getgamesbyround";
 }
