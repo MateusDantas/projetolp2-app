@@ -1005,11 +1005,10 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f060023;
         public static final int action_bar_title=0x7f060022;
         public static final int action_context_bar=0x7f06001d;
-        public static final int action_forgot_password=0x7f06007f;
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060024;
-        public static final int action_settings=0x7f060080;
+        public static final int action_settings=0x7f06007f;
         public static final int activity_chooser_view_content=0x7f060025;
         public static final int admin_name=0x7f060058;
         public static final int always=0x7f06000b;
@@ -1209,17 +1208,9 @@ containing a value of this type.
         public static final int activity_ranking_actions=0x7f0e0001;
         public static final int activity_room_actions=0x7f0e0002;
         public static final int activity_room_inside_actions=0x7f0e0003;
-        public static final int authenticator=0x7f0e0004;
-        public static final int bets=0x7f0e0005;
-        public static final int create_room=0x7f0e0006;
-        public static final int enter_to_room=0x7f0e0007;
-        public static final int login=0x7f0e0008;
-        public static final int make_bet=0x7f0e0009;
-        public static final int no_menu=0x7f0e000a;
-        public static final int register=0x7f0e000b;
-        public static final int room_inside=0x7f0e000c;
-        public static final int start=0x7f0e000d;
-        public static final int test=0x7f0e000e;
+        public static final int create_room=0x7f0e0004;
+        public static final int login=0x7f0e0005;
+        public static final int no_menu=0x7f0e0006;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 

@@ -30,10 +30,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Activity which displays a login screen to the user, offering registration as
- * well.
- */
+
 public class EnterToRoom extends Activity {
 
 	/**
@@ -139,13 +136,6 @@ public class EnterToRoom extends Activity {
 		
 		startActivity(intent);
 		finish();
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.enter_to_room, menu);
-		return true;
 	}
 
 	/**
