@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="Flamengo"
-       android:textSize="13sp" />
+       android:textSize="11sp" />
 
     <TextView
         android:id="@+id/textViewX"
@@ -29,7 +29,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="Botafogo"
-        android:textSize="13sp" />
+        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/game_date"
@@ -39,5 +39,26 @@
         android:layout_below="@+id/first_team_name"
         android:text="22/02/2014"
         android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/score_team_one"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_alignBaseline="@+id/textViewX"
+        android:layout_alignBottom="@+id/textViewX"
+        android:layout_toLeftOf="@+id/textViewX"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/score_team_two"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignBaseline="@+id/textViewX"
+        android:layout_alignBottom="@+id/textViewX"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/textViewX"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

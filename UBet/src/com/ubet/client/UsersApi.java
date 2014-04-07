@@ -15,6 +15,7 @@ import com.ubet.util.UbetAccount;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.util.Log;
 
 public class UsersApi {
 

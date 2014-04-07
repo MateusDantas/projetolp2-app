@@ -3,8 +3,10 @@ package com.ubet.activity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import com.ubet.R;
+import com.ubet.activity.RoomInside.UsersTask;
 import com.ubet.client.UsersApi;
 import com.ubet.content.UsersContent;
 import com.ubet.util.UbetAccount;
@@ -65,8 +67,19 @@ public class RankingActivity extends Activity {
 		listRanking = (ListView) findViewById(R.id.listView_ranking);
 
 		showItens();
+		this.handler.postDelayed(checkRunnable, 500L);
 	}
 
+	private final Runnable checkRunnable = new Runnable() {
+		public void run() {
+
+			setRefreshActionButtonState(true);
+			userTask = new UsersTask();
+			userTask.executeOnExecutor(Executors.newSingleThreadExecutor());
+			handler.postDelayed(this, 60000L);
+		}
+	};
+	
 	private void showItens() {
 
 		arrayAdapter = new UsersContentAdapter(context,
@@ -164,7 +177,7 @@ public class RankingActivity extends Activity {
 				}
 				if (itemViewUserScore != null) {
 					itemViewUserScore.setText("Coins: "
-							+ String.valueOf(item.getScore()));
+							+ String.valueOf(item.getCoins()));
 				}
 			}
 			return view;

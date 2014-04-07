@@ -43,7 +43,7 @@ public class BetsActivity extends FragmentActivity implements
 	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
 	private BetsActivity thisActivity = this;
-	
+
 	ViewPager mViewPager;
 
 	Context context;
@@ -195,12 +195,12 @@ public class BetsActivity extends FragmentActivity implements
 		private GamesSectionFragment thisFragment = this;
 
 		GamesTask newTask;
-		
+
 		Context nowContext;
 
 		int round, roomId;
 		String roomName;
-		
+
 		View rootView;
 
 		@Override
@@ -216,7 +216,6 @@ public class BetsActivity extends FragmentActivity implements
 
 			list = (ListView) rootView.findViewById(R.id.listView_games);
 
-			
 			showItens();
 			if (games.size() == 0) {
 				final View linear = rootView.findViewById(R.id.loading_status);
@@ -241,16 +240,19 @@ public class BetsActivity extends FragmentActivity implements
 						int arg2, long arg3) {
 
 					if (roomId >= 0) {
-						Log.d("opa", "sim");
-						Intent intent = new Intent(nowContext, MakeBetActivity.class);
+						Intent intent = new Intent(nowContext,
+								MakeBetActivity.class);
 						intent.putExtra("round", round);
 						intent.putExtra("roomid", roomId);
 						intent.putExtra("gameid", games.get(arg2).getGameId());
-						intent.putExtra("first_team_name", games.get(arg2).getFirstTeamName());
-						intent.putExtra("second_team_name", games.get(arg2).getSecondTeamName());
-						intent.putExtra("gamedate", games.get(arg2).getFormattedDate());
+						intent.putExtra("first_team_name", games.get(arg2)
+								.getFirstTeamName());
+						intent.putExtra("second_team_name", games.get(arg2)
+								.getSecondTeamName());
+						intent.putExtra("gamedate", games.get(arg2)
+								.getFormattedDate());
 						intent.putExtra("roomname", roomName);
-						
+
 						startActivity(intent);
 					}
 				}
@@ -264,10 +266,10 @@ public class BetsActivity extends FragmentActivity implements
 
 			if (rootView == null)
 				return;
-			
+
 			final View linear = rootView.findViewById(R.id.loading_status);
 			linear.setVisibility(View.INVISIBLE);
-			
+
 			arrayAdapter.clear();
 			arrayAdapter.addAll(listOfGames);
 			arrayAdapter.notifyDataSetChanged();
@@ -317,7 +319,7 @@ public class BetsActivity extends FragmentActivity implements
 				if (view == null) {
 					LayoutInflater inflater = (LayoutInflater) context
 							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-					view = inflater.inflate(this.textViewResourceId, null);
+					view = inflater.inflate(R.layout.games_list, null);
 				}
 
 				GamesContent item = getItem(position);
@@ -329,6 +331,10 @@ public class BetsActivity extends FragmentActivity implements
 							.findViewById(R.id.second_team_name);
 					TextView dateView = (TextView) view
 							.findViewById(R.id.game_date);
+					TextView scoreOneView = (TextView) view
+							.findViewById(R.id.score_team_one);//score_team_one
+					TextView scoreTwoView = (TextView) view
+							.findViewById(R.id.score_team_two);
 
 					if (firstTeamView != null)
 						firstTeamView.setText(item.getFirstTeamName());
@@ -338,6 +344,20 @@ public class BetsActivity extends FragmentActivity implements
 
 					if (dateView != null)
 						dateView.setText(item.getFormattedDate());
+					
+					if (scoreOneView != null) {
+						if (item.getFirstTeamScore() >= 0)
+							scoreOneView.setText(String.valueOf(item.getFirstTeamScore()));
+						else
+							scoreOneView.setText("");
+					}
+					
+					if (scoreTwoView != null) {
+						if (item.getSecondTeamScore() >= 0)
+							scoreTwoView.setText(String.valueOf(item.getSecondTeamScore()));
+						else
+							scoreTwoView.setText("");
+					}
 				}
 				return view;
 			}

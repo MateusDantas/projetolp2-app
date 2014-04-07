@@ -190,13 +190,16 @@ public class RoomsActivity extends Activity {
     		intent.putExtra("username", account.name);
 			startActivity(intent);
     		
-    	} else if (position == 1) { //MY BETS
+    	} else if (position == 1) { // GAMES
     		
+    		Intent intent = new Intent(this, BetsActivity.class);
+    		startActivity(intent);
     	
     	
     	} else if (position == 2) { //ranking
     		
-    	
+    		Intent intent = new Intent(this, RankingActivity.class);
+    		startActivity(intent);
     		
     	} else if (position == 3) { //LOGOUT
     		
