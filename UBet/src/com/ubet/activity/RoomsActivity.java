@@ -255,11 +255,13 @@ public class RoomsActivity extends Activity {
 	public void checkAuthenticateUser() {
 
 		if (accountManager.getAccountsByType(Constants.ACCOUNT_TYPE).length == 0) {
+			Log.d("ola", "hmmm");
 			killThemAll();
 			return;
 		}
 		
 		if (account == null) {
+			Log.d("ola", "aqui");
 			killThemAll();
 			return;
 		}
@@ -362,6 +364,11 @@ public class RoomsActivity extends Activity {
 		// TODO Auto-generated method stub
 		if (resultCode == 1) {
 			Toast.makeText(context, "Cya!", Toast.LENGTH_SHORT).show();
+			if (account == null || accountManager == null) {
+				checkAuthenticateUser();
+				return;
+			}
+			accountManager.invalidateAuthToken(Constants.ACCOUNT_TYPE, accountManager.peekAuthToken(account, Constants.AUTH_TOKEN_TYPE));
 			checkAuthenticateUser();
 		} else {
 			Toast.makeText(context, "You shall not pass!", Toast.LENGTH_SHORT)
