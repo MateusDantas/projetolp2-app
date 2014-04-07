@@ -3,7 +3,6 @@ package com.ubet.authenticator;
 import com.ubet.Constants;
 import com.ubet.R;
 import com.ubet.activity.RoomsActivity;
-import com.ubet.activity.TestActivity;
 import com.ubet.client.UbetApi;
 import com.ubet.util.UbetAccount;
 

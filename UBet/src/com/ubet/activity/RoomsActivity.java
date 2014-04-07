@@ -64,7 +64,7 @@ public class RoomsActivity extends Activity {
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private ListView mDrawerList;
-	private String[] mPlanetTitles;
+	private String[] mTitles;
 	List<String> menuOptions = new ArrayList<String>();
 	
 	Handler handler = new Handler();
@@ -83,7 +83,7 @@ public class RoomsActivity extends Activity {
 		rooms = new ArrayList<RoomsContent>();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.rooms_drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
-		mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+		mTitles = getResources().getStringArray(R.array.planets_array);
 		
 		if (account == null) {
 			killThemAll();
@@ -91,7 +91,7 @@ public class RoomsActivity extends Activity {
 		
 		mDrawerLayout.setScrimColor(Color.TRANSPARENT);
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.rooms_drawer_list, mPlanetTitles));
+                R.layout.rooms_drawer_list, mTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -105,12 +105,12 @@ public class RoomsActivity extends Activity {
                 R.string.drawer_close  /* "close drawer" description for accessibility */
                 ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle("ROOMS");
+                getActionBar().setTitle("Rooms");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle("SETTINGS");
+                getActionBar().setTitle("Settings");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -190,24 +190,20 @@ public class RoomsActivity extends Activity {
     		intent.putExtra("username", account.name);
 			startActivity(intent);
     		
-    	} else if (position == 1) { //MY ROOMS
+    	} else if (position == 1) { //MY BETS
     		
-    		/*Intent intent = new Intent(thisActivity, MyRoomsActivity.class);
-    		
-    		startActivity(intent);*/
-    		//Toast.makeText(context, mPlanetTitles[position], Toast.LENGTH_SHORT).show();
     	
-    	} else if (position == 2) { //MY BETS
+    	
+    	} else if (position == 2) { //ranking
     		
-    		Intent intent = new Intent(this, BetsActivity.class);
-    		startActivity(intent);
+    	
     		
     	} else if (position == 3) { //LOGOUT
-    		//TODO
-    		Toast.makeText(context, mPlanetTitles[position], Toast.LENGTH_SHORT).show();
+    		
+    		logoutTask = new LogoutTask();
+			logoutTask.executeOnExecutor(Executors.newSingleThreadExecutor());
     	} 
         
-        setTitle(mPlanetTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 	

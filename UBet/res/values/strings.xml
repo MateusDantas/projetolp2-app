@@ -3,8 +3,8 @@
 
     <string-array name="planets_array">
         <item>Profile</item>
-        <item>My rooms</item>
         <item>My bets</item>
+        <item>Ranking</item>
         <item>Logout</item>
     </string-array>
 

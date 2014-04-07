@@ -11,6 +11,7 @@ public class UbetUrls {
 	public static final String LOGOFF_USER_URL = "users/logoff";
 	public static final String GET_COINS_USER_URL = "users/getcoins";
 	public static final String GET_SCORE_USER_URL = "users/getscore";
+	public static final String GET_ALL_USERS = "users/getallusers";
 	
 	/**
 	 * Room's URLs
