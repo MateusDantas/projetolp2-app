@@ -362,14 +362,7 @@ public class RoomsActivity extends Activity {
 		// TODO Auto-generated method stub
 		if (resultCode == 1) {
 			Toast.makeText(context, "Cya!", Toast.LENGTH_SHORT).show();
-			this.handler.removeCallbacks(checkRunnable);
-			accountManager.removeAccount(account, null, null);
-			final Intent intent = new Intent(this, StartActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-					| Intent.FLAG_ACTIVITY_CLEAR_TASK
-					| Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			killThemAll();
+			checkAuthenticateUser();
 		} else {
 			Toast.makeText(context, "You shall not pass!", Toast.LENGTH_SHORT)
 					.show();
