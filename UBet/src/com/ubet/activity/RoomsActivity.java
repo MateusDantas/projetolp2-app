@@ -50,6 +50,10 @@ import android.widget.Toast;
 
 public class RoomsActivity extends Activity {
 
+	private static final int LOGOUT_POSITION = 3;
+	private static final int RANKING_POSITION = 2;
+	private static final int GAMES_POSITION = 1;
+	private static final int PROFILE_POSITION = 0;
 	List<RoomsContent> rooms = new ArrayList<RoomsContent>();
 	ListView list;
 	RoomsActivity thisActivity = this;
@@ -184,24 +188,24 @@ public class RoomsActivity extends Activity {
     private void selectItem(int position) {
     
     	mDrawerList.setItemChecked(position, true);
-    	if (position == 0) { //PROFILE
+    	if (position == PROFILE_POSITION) { 
     		
     		Intent intent = new Intent(thisActivity, ProfileActivity.class);
     		intent.putExtra("username", account.name);
 			startActivity(intent);
     		
-    	} else if (position == 1) { // GAMES
+    	} else if (position == GAMES_POSITION) {
     		
     		Intent intent = new Intent(this, BetsActivity.class);
     		startActivity(intent);
     	
     	
-    	} else if (position == 2) { //ranking
+    	} else if (position == RANKING_POSITION) {
     		
     		Intent intent = new Intent(this, RankingActivity.class);
     		startActivity(intent);
     		
-    	} else if (position == 3) { //LOGOUT
+    	} else if (position == LOGOUT_POSITION) {
     		
     		logoutTask = new LogoutTask();
 			logoutTask.executeOnExecutor(Executors.newSingleThreadExecutor());
@@ -305,23 +309,6 @@ public class RoomsActivity extends Activity {
 
 	}
 
-	// When ranking button clicked
-	/** @deprecated  */
-	public void goRanking(View view) {
-		Intent intent = new Intent(this, RankingActivity.class);
-
-		startActivity(intent);
-	}
-
-	// When Profile button clicked
-	/** @deprecated  */
-	public void goProfile(View view) {
-		
-		Intent intent = new Intent(this, ProfileActivity.class);
-		intent.putExtra("username", account.name);
-		startActivity(intent);
-	}
-
 	private void updateRooms(List<RoomsContent> listOfRooms) {
 
 		Collections.sort(listOfRooms, new RoomsContent.sortByPeopleInside());
@@ -353,14 +340,12 @@ public class RoomsActivity extends Activity {
 	}
 
 	private void onProcessFailed() {
-		// TODO Auto-generated method stub
-
 		checkAuthenticateUser();
 		setRefreshActionButtonState(false);
 	}
 
 	private void onUserLogoutResult(Integer resultCode) {
-		// TODO Auto-generated method stub
+		
 		if (resultCode == 1) {
 			Toast.makeText(context, "Cya!", Toast.LENGTH_SHORT).show();
 			if (account == null || accountManager == null) {
