@@ -1,5 +1,7 @@
 package com.ubet.authenticator;
 
+import javax.xml.datatype.Duration;
+
 import com.ubet.Constants;
 import com.ubet.R;
 import com.ubet.activity.RoomsActivity;
@@ -19,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
@@ -31,7 +34,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 	private String username;
 	private String password;
 
-	private TextView message;
 	private EditText passwordEdit, usernameEdit;
 
 	@Override
@@ -51,11 +53,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
 		usernameEdit = (EditText) findViewById(R.id.username);
 		passwordEdit = (EditText) findViewById(R.id.password);
-		message = (TextView) findViewById(R.id.message);
 
 		if (username != null && !TextUtils.isEmpty(username)) {
 			usernameEdit.setText(username);
-			// passwordEdit.requestFocus();
 		}
 
 	}
@@ -68,7 +68,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		redirectIfIsLoggedIn();
 
 		if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-			message.setText(getMessage());
+			
+			Toast.makeText(getApplicationContext(), getMessage(), Toast.LENGTH_SHORT).show();
 		} else {
 			Log.d("LOGIN", "handling log");
 			showProgress();
@@ -123,7 +124,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		if (authToken != null) {
 			finishLogin(authToken);
 		} else {
-			message.setText(getText(R.string.login_fail));
+			Toast.makeText(getApplicationContext(), R.string.login_fail, Toast.LENGTH_SHORT).show();
 		}
 	}
 

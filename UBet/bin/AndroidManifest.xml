@@ -47,6 +47,7 @@
         <activity
             android:name="com.ubet.authenticator.AuthenticatorActivity"
             android:label="@string/title_activity_login"
+            android:windowSoftInputMode="stateHidden" 
             android:parentActivityName="com.ubet.activity.StartActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -60,10 +61,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ubet.activity.StartActivity" />
         </activity>
-        <activity
-            android:name="com.ubet.activity.TestActivity"
-            android:label="@string/title_activity_test" >
-        </activity>
+        
         <activity
             android:name="com.ubet.activity.RoomsActivity"
             android:label="@string/title_activity_rooms" >
