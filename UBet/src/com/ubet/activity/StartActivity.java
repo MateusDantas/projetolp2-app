@@ -4,7 +4,7 @@ import com.ubet.R;
 import com.ubet.authenticator.AuthenticatorActivity;
 import com.ubet.util.UbetAccount;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.accounts.Account;
@@ -23,7 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import android.os.Build;
 
-public class StartActivity extends ActionBarActivity {
+public class StartActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +32,6 @@ public class StartActivity extends ActionBarActivity {
 		redirectIfIsLoggedIn();
 		
 		setContentView(R.layout.activity_start);
-
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
-		
 	}
 
 	public void redirectIfIsLoggedIn() {
@@ -48,26 +42,6 @@ public class StartActivity extends ActionBarActivity {
 			startActivity(intent);
 			finish();
 		}
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.no_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 	
 	//When login button clicked
@@ -83,23 +57,4 @@ public class StartActivity extends ActionBarActivity {
 
 		startActivity(intent);
 	}
-	
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			
-			View rootView = inflater.inflate(R.layout.fragment_start,
-					container, false);
-			return rootView;
-		}
-	}
-
 }
