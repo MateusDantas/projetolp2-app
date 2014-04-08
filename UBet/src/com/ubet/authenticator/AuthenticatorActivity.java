@@ -1,13 +1,10 @@
 package com.ubet.authenticator;
 
-import javax.xml.datatype.Duration;
-
 import com.ubet.Constants;
 import com.ubet.R;
 import com.ubet.activity.RoomsActivity;
 import com.ubet.client.UbetApi;
 import com.ubet.util.UbetAccount;
-
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
 import android.accounts.AccountManager;
@@ -15,12 +12,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class AuthenticatorActivity extends AccountAuthenticatorActivity {
