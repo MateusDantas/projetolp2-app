@@ -2,41 +2,42 @@ package com.ubet.test;
 
 import android.content.Intent;
 import android.test.ActivityUnitTestCase;
-import com.ubet.activity.RoomInfo;
+import com.ubet.activity.RoomInside;
 import com.ubet.R;
 
-public class RoomInfoUnitTest extends ActivityUnitTestCase<RoomInfo> {
+public class RoomInsideUnitTest extends ActivityUnitTestCase<RoomInside> {
 	
+	private int usersRegisteredListViewId;
 	private int roomNameTextViewId;
 	private int adminNameTextViewId;
-	private int limExtraBetTextViewId;
-	private int priceExtraBetViewId;
+	private int usersRegisteredTextViewId;
 	
-	private RoomInfo activity;
+	private RoomInside activity;
 	
-	public RoomInfoUnitTest() {
-		super(RoomInfo.class);
+	public RoomInsideUnitTest() {
+		super(RoomInside.class);
 	}
 	
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 	    Intent intent = new Intent(getInstrumentation().getTargetContext(),
-	        RoomInfo.class);
+	        RoomInside.class);
 	    startActivity(intent, null, null);
 	    activity = getActivity();
 	}
 	
 	public void testLayout() {
-		roomNameTextViewId = R.id.textView_roomName;
+		
+		usersRegisteredListViewId = R.id.listView_users_registered;
+		roomNameTextViewId = R.id.room_name;
 		adminNameTextViewId = R.id.admin_name;
-		limExtraBetTextViewId = R.id.lim_extra_bet;
-		priceExtraBetViewId = R.id.price_extra_bet;
+		usersRegisteredTextViewId = R.id.users_registered;
 		
 		assertNotNull(activity.findViewById(roomNameTextViewId));
 		assertNotNull(activity.findViewById(adminNameTextViewId));
-		assertNotNull(activity.findViewById(limExtraBetTextViewId));
-		assertNotNull(activity.findViewById(priceExtraBetViewId));
+		assertNotNull(activity.findViewById(usersRegisteredListViewId));
+		assertNotNull(activity.findViewById(usersRegisteredTextViewId));
 	}
 	
 }

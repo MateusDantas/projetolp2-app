@@ -98,8 +98,12 @@ public class RoomsActivity extends Activity {
                 R.layout.rooms_drawer_list, mTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        try {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+			getActionBar().setHomeButtonEnabled(true);
+		} catch (Exception e) {
+			finish();
+		}
         
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
@@ -138,17 +142,6 @@ public class RoomsActivity extends Activity {
 
 		return super.onCreateOptionsMenu(menu);
 	}
-
-	@Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-       /* menu.findItem(R.id.ubet_create_room).setVisible(!drawerOpen);
-        menu.findItem(R.id.ubet_menu_logout).setVisible(!drawerOpen);
-        menu.findItem(R.id.ubet_menu_refresh).setVisible(!drawerOpen);*/
-        
-        return super.onPrepareOptionsMenu(menu);
-    }
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
