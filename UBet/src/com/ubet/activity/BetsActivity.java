@@ -26,15 +26,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.ubet.R;
-import com.ubet.activity.ProfileActivity.RoomsContentAdapter;
 import com.ubet.client.GamesApi;
-import com.ubet.client.RoomsApi;
 import com.ubet.content.GamesContent;
-import com.ubet.content.RoomsContent;
 import com.ubet.util.UbetAccount;
 
 public class BetsActivity extends FragmentActivity implements
@@ -42,7 +38,6 @@ public class BetsActivity extends FragmentActivity implements
 
 	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
-	private BetsActivity thisActivity = this;
 
 	ViewPager mViewPager;
 
@@ -85,15 +80,19 @@ public class BetsActivity extends FragmentActivity implements
 				getSupportFragmentManager(), roomId, roomName);
 
 		final ActionBar actionBar = getActionBar();
-
-		if (roomId == -1)
-			actionBar.setTitle("Games");
-		else
-			actionBar.setTitle("Room: " + roomName);
-
-		actionBar.setHomeButtonEnabled(false);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+				
+		try {
+			if (roomId == -1) {
+				actionBar.setTitle("Games");
+			} else {
+				actionBar.setTitle("Room: " + roomName);
+			}
+			actionBar.setHomeButtonEnabled(false);
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		} catch (Exception e) {
+			finish();
+		}
+			
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
 		mViewPager
@@ -105,15 +104,18 @@ public class BetsActivity extends FragmentActivity implements
 				});
 
 		for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
-			actionBar.addTab(actionBar.newTab()
-					.setText(mAppSectionsPagerAdapter.getPageTitle(i))
-					.setTabListener(this));
+			try {
+				actionBar.addTab(actionBar.newTab()
+						.setText(mAppSectionsPagerAdapter.getPageTitle(i))
+						.setTabListener(this));
+			} catch (Exception e) {
+				finish();
+			}
 		}
 	}
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 		mViewPager.setCurrentItem(tab.getPosition());
 	}
 
@@ -191,8 +193,6 @@ public class BetsActivity extends FragmentActivity implements
 		List<GamesContent> games = new ArrayList<GamesContent>();
 		ListView list;
 		GamesContentAdapter arrayAdapter = null;
-
-		private GamesSectionFragment thisFragment = this;
 
 		GamesTask newTask;
 
@@ -332,7 +332,7 @@ public class BetsActivity extends FragmentActivity implements
 					TextView dateView = (TextView) view
 							.findViewById(R.id.game_date);
 					TextView scoreOneView = (TextView) view
-							.findViewById(R.id.score_team_one);//score_team_one
+							.findViewById(R.id.score_team_one);
 					TextView scoreTwoView = (TextView) view
 							.findViewById(R.id.score_team_two);
 

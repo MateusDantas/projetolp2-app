@@ -7,20 +7,9 @@ import java.util.concurrent.Executors;
 
 import com.ubet.Constants;
 import com.ubet.R;
-import com.ubet.R.id;
-import com.ubet.R.layout;
-import com.ubet.R.menu;
-import com.ubet.activity.ProfileActivity.RoomsContentAdapter;
-import com.ubet.activity.ProfileActivity.RoomsTask;
-import com.ubet.activity.ProfileActivity.UserTask;
 import com.ubet.client.RoomsApi;
-import com.ubet.content.RoomsContent;
 import com.ubet.content.UsersContent;
 import com.ubet.util.UbetAccount;
-
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -29,7 +18,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,9 +28,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import android.os.Build;
 
 public class RoomInside extends Activity {
 

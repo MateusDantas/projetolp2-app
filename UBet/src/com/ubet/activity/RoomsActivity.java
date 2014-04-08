@@ -3,19 +3,13 @@ package com.ubet.activity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.Executors;
-
-import org.apache.http.auth.AuthenticationException;
-
 import com.ubet.Constants;
 import com.ubet.R;
-import com.ubet.authenticator.AuthenticatorActivity;
 import com.ubet.client.RoomsApi;
 import com.ubet.client.UsersApi;
 import com.ubet.content.RoomsContent;
 import com.ubet.util.UbetAccount;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,13 +17,10 @@ import android.os.Handler;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,10 +32,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 

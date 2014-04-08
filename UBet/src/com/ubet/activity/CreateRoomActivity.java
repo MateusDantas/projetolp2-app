@@ -2,14 +2,10 @@ package com.ubet.activity;
 
 import com.ubet.Constants;
 import com.ubet.R;
-import com.ubet.R.id;
-import com.ubet.R.layout;
-import com.ubet.R.menu;
 import com.ubet.client.RoomsApi;
 import com.ubet.util.UbetAccount;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,17 +17,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Build;
 
 public class CreateRoomActivity extends ActionBarActivity {
 
+	private static final String LOADING = "Loading...";
 	public EditText nameEdit, passwordEdit, priceRoomEdit;
 	public EditText priceExtraEdit, limExtraEdit;
 
@@ -105,33 +99,34 @@ public class CreateRoomActivity extends ActionBarActivity {
 
 	public void createRoom(View view) {
 
-		/**/
+	
 		nameEdit = (EditText) findViewById(R.id.create_room_name);
 		passwordEdit = (EditText) findViewById(R.id.create_room_password);
 		priceRoomEdit = (EditText) findViewById(R.id.create_room_price_room);
 		priceExtraEdit = (EditText) findViewById(R.id.create_room_price_extra);
 		limExtraEdit = (EditText) findViewById(R.id.create_room_lim_extra);
-		/**/
-
-		name = nameEdit.getText().toString();
-		password = passwordEdit.getText().toString();
-		priceRoom = priceRoomEdit.getText().toString();
-		priceExtra = priceExtraEdit.getText().toString();
-		limExtra = limExtraEdit.getText().toString();
+		
+		try {
+			name = nameEdit.getText().toString();
+			password = passwordEdit.getText().toString();
+			priceRoom = priceRoomEdit.getText().toString();
+			priceExtra = priceExtraEdit.getText().toString();
+			limExtra = limExtraEdit.getText().toString();
+		} catch (Exception e) {
+			finish();
+		}
 
 		if (!TextUtils.isEmpty(getMessage())) {
 			showMessage(getMessage());
 		} else {
-			TextView errorMessage = (TextView) findViewById(R.id.create_room_error_message);
-			errorMessage.setText("Loading...");
+			showMessage(LOADING);
 			roomTask = new CreateRoomTask();
 			roomTask.execute();
 		}
 	}
 
 	private void showMessage(String text) {
-		// TODO Auto-generated method stub
-		Toast.makeText(context, text, 2).show();
+		Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
 	}
 
 	public String getMessage() {
@@ -173,11 +168,8 @@ public class CreateRoomActivity extends ActionBarActivity {
 
 	private void onCreateRoomResult(Integer resultCode) {
 
-		TextView errorMessage = (TextView) findViewById(R.id.create_room_error_message);
-		if (resultCode == 7) {
+	if (resultCode == 7) {
 
-			if (errorMessage != null)
-				errorMessage.setText("OK!");
 			final Intent intent = new Intent(this, RoomsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 					| Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -185,7 +177,7 @@ public class CreateRoomActivity extends ActionBarActivity {
 			startActivity(intent);
 			killThemAll();
 		} else {
-			errorMessage.setText(getError(resultCode));
+			showMessage(getError(resultCode));
 		}
 	}
 
