@@ -10,26 +10,20 @@ import com.ubet.authenticator.AuthenticatorActivity;
 import com.ubet.client.UbetApi;
 import com.ubet.util.UbetAccount;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.os.Build;
+import android.widget.Toast;
 
-public class RegisterActivity extends ActionBarActivity {
+public class RegisterActivity extends Activity {
 
+	private static final int NO_ERROR = 7;
+	private static final String LOADING = "Loading...";
 	String firstName, secondName, username, password, email;
 
 	@Override
@@ -39,10 +33,6 @@ public class RegisterActivity extends ActionBarActivity {
 		redirectIfIsLoggedIn();
 		
 		setContentView(R.layout.activity_register);
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
 	}
 
 	public void redirectIfIsLoggedIn() {
@@ -64,8 +54,6 @@ public class RegisterActivity extends ActionBarActivity {
 		EditText passwordEdit = (EditText) findViewById(R.id.password);
 		EditText emailEdit = (EditText) findViewById(R.id.email);
 
-		TextView messageView = (TextView) findViewById(R.id.message);
-
 		firstName = firstNameEdit.getText().toString();
 		secondName = secondNameEdit.getText().toString();
 		username = usernameEdit.getText().toString();
@@ -75,9 +63,9 @@ public class RegisterActivity extends ActionBarActivity {
 		if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(secondName)
 				|| TextUtils.isEmpty(username) || TextUtils.isEmpty(password)
 				|| TextUtils.isEmpty(email)) {
-			messageView.setText(getMessage());
+			Toast.makeText(getApplicationContext(), getMessage(), Toast.LENGTH_SHORT).show();
 		} else {
-			messageView.setText("Loading...");
+			Toast.makeText(getApplicationContext(), LOADING, Toast.LENGTH_SHORT).show();
 			RegisterTask registerUser = new RegisterTask();
 			registerUser.execute();
 		}
@@ -115,13 +103,11 @@ public class RegisterActivity extends ActionBarActivity {
 	
 	public void onRegisterResult(int resultCode) {
 
-		TextView messageView = (TextView) findViewById(R.id.message);
-		if (resultCode == 7) {
-			messageView.setText("");
+		if (resultCode == NO_ERROR) {
 			Intent intent = new Intent(this, AuthenticatorActivity.class);
 			startActivity(intent);
 		} else {
-			messageView.setText(getError(resultCode));
+			Toast.makeText(getApplicationContext(), getError(resultCode), Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -155,22 +141,4 @@ public class RegisterActivity extends ActionBarActivity {
 		}
 
 	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_register,
-					container, false);
-			return rootView;
-		}
-	}
-
 }
