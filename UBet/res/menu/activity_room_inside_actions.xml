@@ -11,6 +11,13 @@
          android:icon="@drawable/ic_action_new"
          android:title="Add Bet"
          android:alphabeticShortcut="b"
+         android:orderInCategory="2"
+         android:showAsAction="always" />
+    
+    <item android:id="@+id/ubet_menu_room_inside_info"
+         android:icon="@drawable/ic_action_about"
+         android:title="Info"
+         android:alphabeticShortcut="b"
          android:orderInCategory="1"
          android:showAsAction="always" />
     

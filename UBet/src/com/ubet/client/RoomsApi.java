@@ -56,9 +56,10 @@ public class RoomsApi {
 			int roomId = Integer.valueOf(element.attr("roomid"));
 			int priceRoom = Integer.valueOf(element.attr("roomprice"));
 			int peopleInside = Integer.valueOf(element.attr("peopleinside"));
-
+			int priceExtra = Integer.valueOf(element.attr("priceextra"));
+			int limExtra = Integer.valueOf(element.attr("limextra"));
 			listOfRooms.add(new RoomsContent(roomId, roomName, adminName,
-					priceRoom, peopleInside));
+					priceRoom, peopleInside, priceExtra, limExtra));
 		}
 
 		return listOfRooms;

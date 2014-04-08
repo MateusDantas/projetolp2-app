@@ -157,22 +157,22 @@ public class BetsActivity extends FragmentActivity implements
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return 10;
+			return 7;
 		}
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			if (position <= 5) {
+			if (position <= 2) {
 				return "Mata-mata " + (position + 1);
 			} else {
 				switch (position) {
-				case 6:
+				case 3:
 					return "Oitavas";
-				case 7:
+				case 4:
 					return "Quartas";
-				case 8:
+				case 5:
 					return "Semis";
-				case 9:
+				case 6:
 					return "Final";
 
 				default:

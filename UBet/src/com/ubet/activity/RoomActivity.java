@@ -34,12 +34,17 @@ public class RoomActivity extends Activity {
 	private Account account;
 
 	private String adminName, roomName;
+	private int priceExtra, limExtra;
 
 	TextView roomNameView;
 	TextView adminNameView;
 	TextView priceRoomView;
 	TextView peopleInsideView;
+	TextView priceExtraView;
+	TextView limExtraView;
 	Button registerButton;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +53,7 @@ public class RoomActivity extends Activity {
 
 		Intent intent = getIntent();
 
-		if (intent == null) {
+		if (intent.getExtras() == null) {
 			finish();
 		}
 
@@ -56,9 +61,13 @@ public class RoomActivity extends Activity {
 		adminNameView = (TextView) findViewById(R.id.admin_name);
 		priceRoomView = (TextView) findViewById(R.id.room_price);
 		peopleInsideView = (TextView) findViewById(R.id.number_of_people);
+		priceExtraView = (TextView) findViewById(R.id.price_extra_bet);
+		limExtraView = (TextView) findViewById(R.id.lim_extra_bet);
 		registerButton = (Button) findViewById(R.id.button_register);
 
 		adminName = intent.getExtras().getString("admin_name");
+		priceExtra = intent.getExtras().getInt("price_extra");
+		limExtra = intent.getExtras().getInt("lim_extra");
 
 		context = getApplicationContext();
 		account = UbetAccount.getAccount(context);
@@ -85,6 +94,8 @@ public class RoomActivity extends Activity {
 				+ String.valueOf(intent.getExtras().getInt("price_room")));
 		peopleInsideView.setText("People in this room: "
 				+ String.valueOf(intent.getExtras().getInt("people_inside")));
+		priceExtraView.setText("Extra's Price: " + intent.getExtras().getInt("price_extra"));
+		limExtraView.setText("Extra's Lim: " + intent.getExtras().getInt("lim_extra"));
 		roomId = intent.getExtras().getInt("room_id");
 	}
 
@@ -97,6 +108,8 @@ public class RoomActivity extends Activity {
 		priceRoomView.setVisibility(View.INVISIBLE);
 		peopleInsideView.setVisibility(View.INVISIBLE);
 		registerButton.setVisibility(View.INVISIBLE);
+		priceExtraView.setVisibility(View.INVISIBLE);
+		limExtraView.setVisibility(View.INVISIBLE);
 	}
 
 	public void hideProgress(boolean flag) {
@@ -109,6 +122,8 @@ public class RoomActivity extends Activity {
 			priceRoomView.setVisibility(View.VISIBLE);
 			peopleInsideView.setVisibility(View.VISIBLE);
 			registerButton.setVisibility(View.VISIBLE);
+			priceExtraView.setVisibility(View.VISIBLE);
+			limExtraView.setVisibility(View.VISIBLE);
 		}
 	}
 	
@@ -129,7 +144,9 @@ public class RoomActivity extends Activity {
 		intent.putExtra("roomid", roomId);
 		intent.putExtra("admin_name", adminName);
 		intent.putExtra("room_name", roomName);
-
+		intent.putExtra("price_extra", priceExtra);
+		intent.putExtra("lim_extra", limExtra);
+		
 		startActivity(intent);
 		finish();
 	}

@@ -60,12 +60,13 @@ public class RoomInside extends Activity {
 
 	private int roomId;
 	private String adminName, roomName;
+	private int priceExtra, limExtra;
 
 	Handler handler = new Handler();
-	
+
 	UsersTask userTask;
 	UsersTask newTask;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,7 +78,7 @@ public class RoomInside extends Activity {
 
 		checkAuthenticateUser();
 		getIntentResults();
-		
+
 		TextView roomNameView = (TextView) findViewById(R.id.room_name);
 		TextView adminNameView = (TextView) findViewById(R.id.admin_name);
 
@@ -94,13 +95,15 @@ public class RoomInside extends Activity {
 
 		Intent intent = getIntent();
 
-		if (intent == null) {
+		if (intent.getExtras() == null) {
 			killThemAll();
 		}
 
 		roomId = intent.getExtras().getInt("roomid");
 		adminName = intent.getExtras().getString("admin_name");
 		roomName = intent.getExtras().getString("room_name");
+		priceExtra = intent.getExtras().getInt("price_extra");
+		limExtra = intent.getExtras().getInt("lim_extra");
 
 		if (roomId == 0 || adminName == null || roomName == null) {
 			killThemAll();
@@ -119,27 +122,26 @@ public class RoomInside extends Activity {
 	};
 
 	void killThemAll() {
-		
+
 		if (userTask != null)
 			userTask.cancel(true);
 		if (newTask != null)
 			newTask.cancel(true);
 		finish();
 	}
-	
-	
+
 	public void checkAuthenticateUser() {
 
 		if (accountManager.getAccountsByType(Constants.ACCOUNT_TYPE).length == 0) {
 			killThemAll();
 			return;
 		}
-		
+
 		if (account == null) {
 			killThemAll();
 			return;
 		}
-		
+
 		String nowToken = accountManager.peekAuthToken(account,
 				Constants.AUTH_TOKEN_TYPE);
 		if (nowToken == null) {
@@ -194,6 +196,15 @@ public class RoomInside extends Activity {
 			intent.putExtra("roomid", roomId);
 			intent.putExtra("roomname", roomName);
 			startActivity(intent);
+			return true;
+		case R.id.ubet_menu_room_inside_info:
+			
+			Intent newIntent = new Intent(this, RoomInfo.class);
+			newIntent.putExtra("roomname", roomName);
+			newIntent.putExtra("adminname", adminName);
+			newIntent.putExtra("price_extra", priceExtra);
+			newIntent.putExtra("lim_extra", limExtra);
+			startActivity(newIntent);
 			return true;
 		}
 

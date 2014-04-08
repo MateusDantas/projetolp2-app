@@ -47,8 +47,8 @@
         <activity
             android:name="com.ubet.authenticator.AuthenticatorActivity"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="stateHidden" 
-            android:parentActivityName="com.ubet.activity.StartActivity" >
+            android:parentActivityName="com.ubet.activity.StartActivity"
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ubet.activity.StartActivity" />
@@ -61,7 +61,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ubet.activity.StartActivity" />
         </activity>
-        
         <activity
             android:name="com.ubet.activity.RoomsActivity"
             android:label="@string/title_activity_rooms" >
@@ -122,6 +121,10 @@
         <activity
             android:name="com.ubet.activity.MakeBetActivity"
             android:label="@string/title_activity_make_bet" >
+        </activity>
+        <activity
+            android:name="com.ubet.activity.RoomInfo"
+            android:label="@string/title_activity_room_info" >
         </activity>
     </application>
 

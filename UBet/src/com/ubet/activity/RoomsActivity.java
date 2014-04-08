@@ -303,6 +303,8 @@ public class RoomsActivity extends Activity {
 				intent.putExtra("room_id", rooms.get(arg2).getRoomId());
 				intent.putExtra("price_room", rooms.get(arg2).getPriceRoom());
 				intent.putExtra("people_inside", rooms.get(arg2).getPeopleInside());
+				intent.putExtra("price_extra", rooms.get(arg2).getPriceExtra());
+				intent.putExtra("lim_extra", rooms.get(arg2).getLimExtra());
 				startActivity(intent);
 			}
 		});
