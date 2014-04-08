@@ -89,7 +89,7 @@ public class BetsActivity extends FragmentActivity implements
 			}
 			actionBar.setHomeButtonEnabled(false);
 			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
 			finish();
 		}
 			
@@ -108,7 +108,7 @@ public class BetsActivity extends FragmentActivity implements
 				actionBar.addTab(actionBar.newTab()
 						.setText(mAppSectionsPagerAdapter.getPageTitle(i))
 						.setTabListener(this));
-			} catch (Exception e) {
+			} catch (NullPointerException e) {
 				finish();
 			}
 		}

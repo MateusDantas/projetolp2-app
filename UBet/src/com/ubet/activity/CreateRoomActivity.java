@@ -112,7 +112,7 @@ public class CreateRoomActivity extends ActionBarActivity {
 			priceRoom = priceRoomEdit.getText().toString();
 			priceExtra = priceExtraEdit.getText().toString();
 			limExtra = limExtraEdit.getText().toString();
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
 			finish();
 		}
 

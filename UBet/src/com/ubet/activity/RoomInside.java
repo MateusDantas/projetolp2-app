@@ -91,8 +91,8 @@ public class RoomInside extends Activity {
 			roomName = intent.getExtras().getString("room_name");
 			priceExtra = intent.getExtras().getInt("price_extra");
 			limExtra = intent.getExtras().getInt("lim_extra");
-		} catch (Exception e) {
-			finish();
+		} catch (NullPointerException e) {
+			killThemAll();
 		}
 
 		if (roomId == 0 || adminName == null || roomName == null) {

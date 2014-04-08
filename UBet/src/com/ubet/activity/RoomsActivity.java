@@ -89,7 +89,7 @@ public class RoomsActivity extends Activity {
         try {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 			getActionBar().setHomeButtonEnabled(true);
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
 			finish();
 		}
         

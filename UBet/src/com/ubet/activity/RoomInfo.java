@@ -33,7 +33,7 @@ public class RoomInfo extends Activity {
 			adminNameView.setText("Admin: " + adminName);
 			priceExtraView.setText("Extra's Price: " + priceExtra);
 			limExtraView.setText("Extra's Lim: " + limExtra);
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
 			finish();
 		}
 
