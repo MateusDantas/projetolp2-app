@@ -165,7 +165,7 @@ public class BetsActivity extends FragmentActivity implements
 		@Override
 		public CharSequence getPageTitle(int position) {
 			if (position <= 2) {
-				return "Mata-mata " + (position + 1);
+				return (position + 1) + " Semana";
 			} else {
 				switch (position) {
 				case 3:
